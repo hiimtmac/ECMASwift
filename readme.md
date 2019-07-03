@@ -8,6 +8,27 @@ Todo:
 - [ ] `WKUIDelegateMethods` for Alert / Confirm / Input
 - [ ] `JavaScriptCore` stuff
 
+### Installation
+
+Requirements:
+- iOS 12.0+
+- Swift 5.0+
+
+In your podfile
+```ruby
+platform :ios, '12.0'
+
+source 'https://github.com/hiimtmac/specs.git'
+source 'https://github.com/CocoaPods/Specs.git'
+
+target 'MyProj' do
+    use_frameworks!
+
+    pod 'ECMASwift'
+
+end
+```
+
 ## WKWebView
 
 Extensions using [PromiseKit](https://github.com/mxcl/PromiseKit)
