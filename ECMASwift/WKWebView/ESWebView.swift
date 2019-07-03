@@ -21,6 +21,10 @@ public class ESWebView: WKWebView {
     public static let unknown = Notification.Name("ECMASwiftUnknown")
     public static let error = Notification.Name("ECMASwiftError")
     
+    public var handleAlertPanel: ((_ message: String, _ completionHandler: @escaping () -> Void) -> Void)?
+    public var handleConfirmPanel: ((_ message: String, _ completionHandler: @escaping (Bool) -> Void) -> Void)?
+    public var handleTextInputPanel: ((_ prompt: String, _ defaultText: String?, _ completionHandler: @escaping (String?) -> Void) -> Void)?
+    
     public init(frame: CGRect, scripts: [WKUserScript] = []) {
         let preferences = WKPreferences()
         preferences.setValue(true, forKey: "allowFileAccessFromFileURLs")
@@ -39,6 +43,7 @@ public class ESWebView: WKWebView {
         userController.add(self, name: kMessage)
         userController.add(self, name: kPrompt)
         userController.add(self, name: kRequest)
+        uiDelegate = self
     }
     
     required init?(coder: NSCoder) {
@@ -103,5 +108,31 @@ extension ESWebView: WKScriptMessageHandler {
     public enum HandlerType: String, Codable {
         case variable
         case function
+    }
+}
+
+extension ESWebView: WKUIDelegate {
+    public func webView(_ webView: WKWebView, runJavaScriptAlertPanelWithMessage message: String, initiatedByFrame frame: WKFrameInfo, completionHandler: @escaping () -> Void) {
+        if let handleAlertPanel = handleAlertPanel {
+            handleAlertPanel(message, completionHandler)
+        } else {
+            completionHandler()
+        }
+    }
+    
+    public func webView(_ webView: WKWebView, runJavaScriptConfirmPanelWithMessage message: String, initiatedByFrame frame: WKFrameInfo, completionHandler: @escaping (Bool) -> Void) {
+        if let handleConfirmPanel = handleConfirmPanel {
+            handleConfirmPanel(message, completionHandler)
+        } else {
+            completionHandler(false)
+        }
+    }
+    
+    public func webView(_ webView: WKWebView, runJavaScriptTextInputPanelWithPrompt prompt: String, defaultText: String?, initiatedByFrame frame: WKFrameInfo, completionHandler: @escaping (String?) -> Void) {
+        if let handleTextInputPanel = handleTextInputPanel {
+            handleTextInputPanel(prompt, defaultText, completionHandler)
+        } else {
+            completionHandler(nil)
+        }
     }
 }
