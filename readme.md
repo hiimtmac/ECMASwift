@@ -2,12 +2,6 @@
 
 > Goal of this library is to package error prone string functionality into stronger typed composable pieces
 
-Todo:
-- [x] PromiseKit extensions on [`WKWebView`](#wkwebview)
-- [x] Handle messaging from `window.webkit.messageHandlers.MyMessageHandler.postMessage(...)` [`ESWebView`](#eswebview)
-- [x] `WKUIDelegate` for Alert / Confirm / Input [`WKUIDelegate`](#wkuidelegate)
-- [ ] `JavaScriptCore` stuff
-
 ### Installation
 
 Requirements:
@@ -333,4 +327,17 @@ webView.handleTextInputPanel = { [weak self] message, defaultText, completion in
     })
     self?.present(ac, animated: true)
 }
+```
+
+## String Interpolation
+
+`JavaScriptParameterEncodable` objects can be string interpolated using
+
+```swift
+struct Object: Codable, JavaScriptParameterEncodable {
+    let name: String
+}
+
+let javaScriptString = "var myVar = \(asJS: Object(name: "tmac")"
+// "var myVar = {\"name\":\"tmac\"}"
 ```
