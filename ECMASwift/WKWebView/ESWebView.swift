@@ -21,9 +21,9 @@ public class ESWebView: WKWebView {
     public static let unknown = Notification.Name("ECMASwiftUnknown")
     public static let error = Notification.Name("ECMASwiftError")
     
-    public var handleAlertPanel: (() -> Void)?
-    public var handleConfirmPanel: (() -> Void)?
-    public var handleTextInputPanel: (() -> Void)?
+    public var handleAlertPanel: ((_ message: String, _ completionHandler: @escaping () -> Void) -> Void)?
+    public var handleConfirmPanel: ((_ message: String, _ completionHandler: @escaping (Bool) -> Void) -> Void)?
+    public var handleTextInputPanel: ((_ prompt: String, _ defaultText: String?, _ completionHandler: @escaping (String?) -> Void) -> Void)?
     
     public init(frame: CGRect, scripts: [WKUserScript] = []) {
         let preferences = WKPreferences()
@@ -43,6 +43,7 @@ public class ESWebView: WKWebView {
         userController.add(self, name: kMessage)
         userController.add(self, name: kPrompt)
         userController.add(self, name: kRequest)
+        uiDelegate = self
     }
     
     required init?(coder: NSCoder) {
@@ -112,38 +113,26 @@ extension ESWebView: WKScriptMessageHandler {
 
 extension ESWebView: WKUIDelegate {
     public func webView(_ webView: WKWebView, runJavaScriptAlertPanelWithMessage message: String, initiatedByFrame frame: WKFrameInfo, completionHandler: @escaping () -> Void) {
-        let ac = UIAlertController(title: nil, message: message, preferredStyle: .alert)
-        ac.addAction(UIAlertAction(title: acceptText, style: .default) { _ in
+        if let handleAlertPanel = handleAlertPanel {
+            handleAlertPanel(message, completionHandler)
+        } else {
             completionHandler()
-        })
-        
-        present(ac, animated: true)
+        }
     }
     
     public func webView(_ webView: WKWebView, runJavaScriptConfirmPanelWithMessage message: String, initiatedByFrame frame: WKFrameInfo, completionHandler: @escaping (Bool) -> Void) {
-        let ac = UIAlertController(title: nil, message: message, preferredStyle: .alert)
-        ac.addAction(UIAlertAction(title: cancelText, style: .default) { _ in
+        if let handleConfirmPanel = handleConfirmPanel {
+            handleConfirmPanel(message, completionHandler)
+        } else {
             completionHandler(false)
-        })
-        ac.addAction(UIAlertAction(title: acceptText, style: .default) { _ in
-            completionHandler(true)
-        })
-        
-        present(ac, animated: true)
+        }
     }
     
     public func webView(_ webView: WKWebView, runJavaScriptTextInputPanelWithPrompt prompt: String, defaultText: String?, initiatedByFrame frame: WKFrameInfo, completionHandler: @escaping (String?) -> Void) {
-        let ac = UIAlertController(title: nil, message: prompt, preferredStyle: .alert)
-        ac.addTextField { prompt in
-            prompt.text = defaultText
-        }
-        ac.addAction(UIAlertAction(title: cancelText, style: .default) { _ in
+        if let handleTextInputPanel = handleTextInputPanel {
+            handleTextInputPanel(prompt, defaultText, completionHandler)
+        } else {
             completionHandler(nil)
-        })
-        ac.addAction(UIAlertAction(title: acceptText, style: .default) { [ac] _ in
-            completionHandler(ac.textFields?.first?.text)
-        })
-        
-        present(ac, animated: true)
+        }
     }
 }
