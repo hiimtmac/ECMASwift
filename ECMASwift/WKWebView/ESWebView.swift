@@ -9,17 +9,17 @@
 import Foundation
 import WebKit
 
-private let kMessage = "JSFormKitMessage"
-private let kPrompt = "JSFormKitPrompt"
-private let kRequest = "JSFormKitRequest"
+private let kMessage = "ECMASwiftMessage"
+private let kPrompt = "ECMASwiftPrompt"
+private let kRequest = "ECMASwiftRequest"
 
 public class ESWebView: WKWebView {
     
-    public static let message = Notification.Name("JSFormKitMessage")
-    public static let prompt = Notification.Name("JSFormKitPrompt")
-    public static let request = Notification.Name("JSFormKitRequest")
-    public static let unknown = Notification.Name("JSFormKitUnknown")
-    public static let error = Notification.Name("JSFormKitError")
+    public static let message = Notification.Name("ECMASwiftMessage")
+    public static let prompt = Notification.Name("ECMASwiftPrompt")
+    public static let request = Notification.Name("ECMASwiftRequest")
+    public static let unknown = Notification.Name("ECMASwiftUnknown")
+    public static let error = Notification.Name("ECMASwiftError")
     
     public init(frame: CGRect, scripts: [WKUserScript] = []) {
         let preferences = WKPreferences()
