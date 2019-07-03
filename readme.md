@@ -276,7 +276,7 @@ class ViewController: UIViewController {
     }
 
     deinit {
-        NotificationCenter.default.removeAllObservers()
+        NotificationCenter.default.removeObserver(self)
     }
 }
 ```
