@@ -21,6 +21,10 @@ public class ESWebView: WKWebView {
     public static let unknown = Notification.Name("ECMASwiftUnknown")
     public static let error = Notification.Name("ECMASwiftError")
     
+    public var handleAlertPanel: (() -> Void)?
+    public var handleConfirmPanel: (() -> Void)?
+    public var handleTextInputPanel: (() -> Void)?
+    
     public init(frame: CGRect, scripts: [WKUserScript] = []) {
         let preferences = WKPreferences()
         preferences.setValue(true, forKey: "allowFileAccessFromFileURLs")
@@ -103,5 +107,43 @@ extension ESWebView: WKScriptMessageHandler {
     public enum HandlerType: String, Codable {
         case variable
         case function
+    }
+}
+
+extension ESWebView: WKUIDelegate {
+    public func webView(_ webView: WKWebView, runJavaScriptAlertPanelWithMessage message: String, initiatedByFrame frame: WKFrameInfo, completionHandler: @escaping () -> Void) {
+        let ac = UIAlertController(title: nil, message: message, preferredStyle: .alert)
+        ac.addAction(UIAlertAction(title: acceptText, style: .default) { _ in
+            completionHandler()
+        })
+        
+        present(ac, animated: true)
+    }
+    
+    public func webView(_ webView: WKWebView, runJavaScriptConfirmPanelWithMessage message: String, initiatedByFrame frame: WKFrameInfo, completionHandler: @escaping (Bool) -> Void) {
+        let ac = UIAlertController(title: nil, message: message, preferredStyle: .alert)
+        ac.addAction(UIAlertAction(title: cancelText, style: .default) { _ in
+            completionHandler(false)
+        })
+        ac.addAction(UIAlertAction(title: acceptText, style: .default) { _ in
+            completionHandler(true)
+        })
+        
+        present(ac, animated: true)
+    }
+    
+    public func webView(_ webView: WKWebView, runJavaScriptTextInputPanelWithPrompt prompt: String, defaultText: String?, initiatedByFrame frame: WKFrameInfo, completionHandler: @escaping (String?) -> Void) {
+        let ac = UIAlertController(title: nil, message: prompt, preferredStyle: .alert)
+        ac.addTextField { prompt in
+            prompt.text = defaultText
+        }
+        ac.addAction(UIAlertAction(title: cancelText, style: .default) { _ in
+            completionHandler(nil)
+        })
+        ac.addAction(UIAlertAction(title: acceptText, style: .default) { [ac] _ in
+            completionHandler(ac.textFields?.first?.text)
+        })
+        
+        present(ac, animated: true)
     }
 }
