@@ -10,7 +10,7 @@ import XCTest
 import PromiseKit
 @testable import ECMASwift
 
-class EvaluateStongTests: ECMASwiftTestCase {
+class EvaluateStrongTests: ECMASwiftTestCase {
 
     func testStringVar() {
         let exp = expectation(description: "string")
@@ -275,6 +275,30 @@ class EvaluateStongTests: ECMASwiftTestCase {
         }.get {
             XCTAssertEqual($0.name, "tmac")
             XCTAssertEqual($0.age, 27)
+            exp.fulfill()
+        }.catch {
+            XCTFail($0.localizedDescription)
+            exp.fulfill()
+        }
+        
+        wait(for: [exp], timeout: 5)
+    }
+    
+    func testRunReturningContents() {
+        let exp = expectation(description: "returnContents")
+        
+        struct JSON: Codable, JavaScriptParameterEncodable {
+            let name: String
+            let age: Int
+        }
+        
+        let json = JSON(name: "tmac", age: 28)
+        
+        firstly {
+            webView.runReturning(named: "returnContents", args: [json], as: JSON.self)
+        }.get {
+            XCTAssertEqual($0.name, "tmac")
+            XCTAssertEqual($0.age, 28)
             exp.fulfill()
         }.catch {
             XCTFail($0.localizedDescription)
