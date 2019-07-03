@@ -63,6 +63,9 @@
 		D7110A9C22CD1D07008C91CC /* MessagingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagingTests.swift; sourceTree = "<group>"; };
 		D7110A9E22CD1DC7008C91CC /* InterpolationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterpolationTests.swift; sourceTree = "<group>"; };
 		D7110AA022CD1DE9008C91CC /* UserScriptTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserScriptTests.swift; sourceTree = "<group>"; };
+		D7110AA222CD20E7008C91CC /* ECMASwift.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = ECMASwift.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		D7110AA322CD2108008C91CC /* readme.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = readme.md; sourceTree = "<group>"; };
+		D7110AA422CD2208008C91CC /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		E2AD66128F6E822A7DEA6E4B /* Pods-ECMASwift.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ECMASwift.release.xcconfig"; path = "Target Support Files/Pods-ECMASwift/Pods-ECMASwift.release.xcconfig"; sourceTree = "<group>"; };
 		ECAFDB8098A78A31784691D5 /* Pods_ECMASwiftTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ECMASwiftTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -100,6 +103,9 @@
 		D7110A6022CD1846008C91CC = {
 			isa = PBXGroup;
 			children = (
+				D7110AA222CD20E7008C91CC /* ECMASwift.podspec */,
+				D7110AA322CD2108008C91CC /* readme.md */,
+				D7110AA422CD2208008C91CC /* LICENSE */,
 				D7110A6C22CD1846008C91CC /* ECMASwift */,
 				D7110A7722CD1846008C91CC /* ECMASwiftTests */,
 				D7110A6B22CD1846008C91CC /* Products */,
@@ -569,7 +575,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 47A484E46E82A0501CCB4162 /* Pods-ECMASwiftTests.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 3K7UN759DD;
 				INFOPLIST_FILE = ECMASwiftTests/Info.plist;
@@ -589,7 +595,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 4309596F06AD7673D7C7A773 /* Pods-ECMASwiftTests.release.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 3K7UN759DD;
 				INFOPLIST_FILE = ECMASwiftTests/Info.plist;
