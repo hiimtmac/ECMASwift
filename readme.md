@@ -5,7 +5,7 @@
 Todo:
 - [x] PromiseKit extensions on [`WKWebView`](#wkwebview)
 - [x] Handle messaging from `window.webkit.messageHandlers.MyMessageHandler.postMessage(...)` [`ESWebView`](#eswebview)
-- [ ] `WKUIDelegateMethods` for Alert / Confirm / Input
+- [x] `WKUIDelegate` for Alert / Confirm / Input [`WKUIDelegate`](#wkuidelegate)
 - [ ] `JavaScriptCore` stuff
 
 ### Installation
@@ -284,5 +284,53 @@ class ViewController: UIViewController {
     deinit {
         NotificationCenter.default.removeAllObservers()
     }
+}
+```
+
+## WKUIDelegate
+
+`ESWebView` sets its `uiDelegate` to `self` in the initializer. This allows us to capture events from javascript such as alerts, confirmations, and text input panels.
+
+```swift
+public var handleAlertPanel: ((_ message: String, _ completionHandler: @escaping () -> Void) -> Void)?
+public var handleConfirmPanel: ((_ message: String, _ completionHandler: @escaping (Bool) -> Void) -> Void)?
+public var handleTextInputPanel: ((_ prompt: String, _ defaultText: String?, _ completionHandler: @escaping (String?) -> Void) -> Void)?
+```
+
+Set any of the above properties on your webView to handle these events. Not setting them (or setting them to nil) will result in the default behavior the system would take if the `uiDelegate` property was not set.
+
+```swift
+webView.handleAlertPanel = { [weak self] message, completion in
+    let ac = UIAlertController(title: "Alert!", message: message, preferredStyle: .alert)
+    ac.addAction(UIAlertAction(title: "OK", style: .default) { _ in
+        completion()
+    })
+    self?.present(ac, animated: true)
+}
+
+webView.handleConfirmPanel = { [weak self] message, completion in
+    let ac = UIAlertController(title: "Alert!", message: message, preferredStyle: .alert)
+    ac.addAction(UIAlertAction(title: "Yes", style: .default) { _ in
+        completion(true)
+    })
+    ac.addAction(UIAlertAction(title: "NO", style: .default) { _ in
+        completion(false)
+    })
+    self?.present(ac, animated: true)
+}
+
+webView.handleTextInputPanel = { [weak self] message, defaultText, completion in
+    let ac = UIAlertController(title: "Alert!", message: message, preferredStyle: .alert)
+    ac.addTextField(configurationHandler: { (tf) in
+        tf.placeholder = "hello"
+        tf.text = defaultText
+    })
+    ac.addAction(UIAlertAction(title: "Yes", style: .default) { [unowned ac] _ in
+        completion(ac.textFields?.first?.text)
+    })
+    ac.addAction(UIAlertAction(title: "NO", style: .default) { _ in
+        completion(nil)
+    })
+    self?.present(ac, animated: true)
 }
 ```
