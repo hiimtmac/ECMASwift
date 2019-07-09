@@ -10,7 +10,7 @@ Requirements:
 
 In your podfile
 ```ruby
-platform :ios, '12.0'
+platform :ios, '11.0'
 
 source 'https://github.com/hiimtmac/specs.git'
 source 'https://github.com/CocoaPods/Specs.git'
