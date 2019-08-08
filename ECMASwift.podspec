@@ -4,7 +4,9 @@ Pod::Spec.new do |spec|
     spec.version      = "0.1.0"
     spec.summary      = "ECMAScript strong typing helpers for Swift"
     spec.description  = <<-DESC
-    Helps to get/set variables or run methods on a WKWebview
+    Swift/JS helpers to get/set variables, run methods, send
+    notifications on a WKWebview. Utilized PromiseKit to convert
+    WKWebView completion handlers into chainable promises.
     DESC
     
     spec.homepage           = "https://github.com/hiimtmac/ECMASwift"

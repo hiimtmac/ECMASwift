@@ -5,7 +5,7 @@
 ### Installation
 
 Requirements:
-- iOS 12.0+
+- iOS 11.0+
 - Swift 5.0+
 
 In your podfile
@@ -132,7 +132,7 @@ struct JSON: Codable {
 ##### Before
 ```swift
 // simple types
-let javaScriptString = "returnContent(\"tmac\");" // cant just shove JSON(name: "tmac", age: 28) in there
+let javaScriptString = "returnContent(\"tmac\");" // cant just shove "tmac" in there
 webView.evaluateJavaScript(javaScriptString, completionHandler: { (any, error) in
     if let error = error {
         print(error) // error if there was
@@ -144,7 +144,7 @@ webView.evaluateJavaScript(javaScriptString, completionHandler: { (any, error) i
 })
 // Can't reuse this!
 
-let javaScriptString = "returnContent({\"name\":\"tmac\",\"age\":28});"
+let javaScriptString = "returnContent({\"name\":\"tmac\",\"age\":28});" // cant just shove JSON(name: "tmac", age: 28) in there
 webView.evaluateJavaScript(javaScriptString, completionHandler: { (any, error) in
     if let error = error {
         print(error) // error if there was
