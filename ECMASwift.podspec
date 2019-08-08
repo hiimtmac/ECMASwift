@@ -12,7 +12,6 @@ Pod::Spec.new do |spec|
     spec.homepage           = "https://github.com/hiimtmac/ECMASwift"
     spec.license            = { :type => "MIT", :file => "LICENSE" }
     spec.author             = { "hiimtmac" => "taylor@hiimtmac.com" }
-    spec.social_media_url   = "https://twitter.com/hiimtmac"
     spec.platform           = :ios, "11.0"
     spec.source             = { :git => "https://github.com/hiimtmac/ECMASwift.git", :tag => "#{spec.version}" }
     spec.source_files       = "ECMASwift/**/*.swift"
