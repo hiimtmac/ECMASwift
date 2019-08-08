@@ -1,7 +1,7 @@
 Pod::Spec.new do |spec|
     
     spec.name         = "ECMASwift"
-    spec.version      = "0.0.1"
+    spec.version      = "0.1.0"
     spec.summary      = "ECMAScript strong typing helpers for Swift"
     spec.description  = <<-DESC
     Helps to get/set variables or run methods on a WKWebview

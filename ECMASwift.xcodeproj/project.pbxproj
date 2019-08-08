@@ -10,7 +10,6 @@
 		A19DF59E508B4201B993FA68 /* Pods_ECMASwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 583DE56754318B4EA1C34B5E /* Pods_ECMASwift.framework */; };
 		D09901A84BF0EEF24D02F648 /* Pods_ECMASwiftTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ECAFDB8098A78A31784691D5 /* Pods_ECMASwiftTests.framework */; };
 		D7110A7422CD1846008C91CC /* ECMASwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7110A6A22CD1846008C91CC /* ECMASwift.framework */; };
-		D7110A7922CD1846008C91CC /* ECMASwiftTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7110A7822CD1846008C91CC /* ECMASwiftTests.swift */; };
 		D7110A7B22CD1846008C91CC /* ECMASwift.h in Headers */ = {isa = PBXBuildFile; fileRef = D7110A6D22CD1846008C91CC /* ECMASwift.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D7110A8522CD18A7008C91CC /* JavaScriptError.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7110A8422CD18A7008C91CC /* JavaScriptError.swift */; };
 		D7110A8722CD18CA008C91CC /* JavaScript+ParameterEncodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7110A8622CD18CA008C91CC /* JavaScript+ParameterEncodable.swift */; };
@@ -47,7 +46,6 @@
 		D7110A6D22CD1846008C91CC /* ECMASwift.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ECMASwift.h; sourceTree = "<group>"; };
 		D7110A6E22CD1846008C91CC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D7110A7322CD1846008C91CC /* ECMASwiftTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ECMASwiftTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		D7110A7822CD1846008C91CC /* ECMASwiftTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ECMASwiftTests.swift; sourceTree = "<group>"; };
 		D7110A7A22CD1846008C91CC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D7110A8422CD18A7008C91CC /* JavaScriptError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JavaScriptError.swift; sourceTree = "<group>"; };
 		D7110A8622CD18CA008C91CC /* JavaScript+ParameterEncodable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "JavaScript+ParameterEncodable.swift"; sourceTree = "<group>"; };
@@ -139,7 +137,6 @@
 		D7110A7722CD1846008C91CC /* ECMASwiftTests */ = {
 			isa = PBXGroup;
 			children = (
-				D7110A7822CD1846008C91CC /* ECMASwiftTests.swift */,
 				D7110A9822CD1BF1008C91CC /* ECMASwiftTestCase.swift */,
 				D7110A9422CD1BDF008C91CC /* EvaluateWeakTests.swift */,
 				D7110A9622CD1BE8008C91CC /* EvaluateStrongTests.swift */,
@@ -260,6 +257,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				Base,
 			);
 			mainGroup = D7110A6022CD1846008C91CC;
 			productRefGroup = D7110A6B22CD1846008C91CC /* Products */;
@@ -376,7 +374,6 @@
 				D7110A9522CD1BDF008C91CC /* EvaluateWeakTests.swift in Sources */,
 				D7110A9922CD1BF1008C91CC /* ECMASwiftTestCase.swift in Sources */,
 				D7110A9D22CD1D07008C91CC /* MessagingTests.swift in Sources */,
-				D7110A7922CD1846008C91CC /* ECMASwiftTests.swift in Sources */,
 				D7110A9B22CD1CE9008C91CC /* ParameterEncodingTests.swift in Sources */,
 				D7110A9722CD1BE8008C91CC /* EvaluateStrongTests.swift in Sources */,
 				D7110AA122CD1DE9008C91CC /* UserScriptTests.swift in Sources */,

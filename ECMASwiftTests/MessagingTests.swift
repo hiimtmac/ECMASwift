@@ -189,9 +189,9 @@ extension ESWebView {
     }
     
     enum Handler: String {
-        case message = "JSFormKitMessage"
-        case prompt = "JSFormKitPrompt"
-        case request = "JSFormKitRequest"
+        case message = "ECMASwiftMessage"
+        case prompt = "ECMASwiftPrompt"
+        case request = "ECMASwiftRequest"
     }
     
     func triggerMessage(handler: Handler, message: JavaScriptParameterEncodable) -> Promise<Void> {
@@ -218,7 +218,7 @@ class NotificationMessageProxy: NSObject {
     private var retainCycle: NotificationMessageProxy?
     
     override init() {
-        super.init()
+        super.init()        
         retainCycle = self
         
         NotificationCenter.default.addObserver(self, selector: #selector(handleError(_:)), name: ESWebView.error, object: nil)
