@@ -46,7 +46,7 @@ webView.evaluateJavaScript(javaScriptString, completionHandler: { (any, error) i
 webView.evaluateJavaScript("string;", as: String.self) // -> returns Promise<String>
 ```
 
-There are 2 versions, one returning a type, and another for void returns.
+There are 2 overloads, one returning a type, and another for void returns.
 ```swift
 func evaluateJavaScript(_ javaScriptString: String) -> Promise<Void>
 func evaluateJavaScript<T: Decodable>(_ javaScriptString: String, as: T.Type) -> Promise<T>
