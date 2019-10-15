@@ -1,29 +1,35 @@
 //
-//  WKWebView+Promise.swift
+//  WKWebView+Combine.swift
 //  ECMASwift
 //
-//  Created by Taylor McIntyre on 2019-07-03.
+//  Created by Taylor McIntyre on 2019-10-15.
 //  Copyright © 2019 hiimtmac. All rights reserved.
 //
 
 import Foundation
 import WebKit
-import PromiseKit
+import Combine
 
-extension Promise {
-    public func resolve(completion: @escaping (Swift.Result<T, Error>) -> Void) {
-        firstly {
-            self
-        }.done {
+/*
+@available(iOS 13.0, *)
+extension AnyPublisher {
+    public func resolve(completion: @escaping (Swift.Result<Output, Failure>) -> Void) {
+        sink(receiveCompletion: { res in
+            switch res {
+            case .finished:
+                break
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }, receiveValue: {
             completion(.success($0))
-        }.catch {
-            completion(.failure($0))
-        }
+        })
     }
 }
 
+@available(iOS 13.0, *)
 extension WKWebView {
-    func evaluateJavaScript(_ javaScriptString: String) -> Promise<Any> {
+    func evaluateJavaScript(_ javaScriptString: String) -> AnyPublisher<Any, Error> {
         return Promise { seal in
             evaluateJavaScript(javaScriptString, completionHandler: { (any, error) in
                 if let error = error {
@@ -42,8 +48,9 @@ extension WKWebView {
     }
 }
 
+@available(iOS 13.0, *)
 public extension WKWebView {
-    func evaluateJavaScript(_ javaScriptString: String) -> Promise<Void> {
+    func evaluateJavaScript(_ javaScriptString: String) -> AnyPublisher<Void, Error> {
         return Promise { seal in
             evaluateJavaScript(javaScriptString, completionHandler: { (any, error) in
                 if let error = error {
@@ -61,7 +68,7 @@ public extension WKWebView {
         }
     }
     
-    func evaluateJavaScript<T: Decodable>(_ javaScriptString: String, as: T.Type) -> Promise<T> {
+    func evaluateJavaScript<T: Decodable>(_ javaScriptString: String, as: T.Type) -> AnyPublisher<T, Error> {
         return evaluateJavaScript(javaScriptString).map { (any: Any) in
             switch T.self {
             case
@@ -87,12 +94,13 @@ public extension WKWebView {
     }
 }
 
+@available(iOS 13.0, *)
 public extension WKWebView {
-    func getVariable<T: Decodable>(named: String, as type: T.Type) -> Promise<T> {
+    func getVariable<T: Decodable>(named: String, as type: T.Type) -> AnyPublisher<T, Error> {
         return evaluateJavaScript("\(named);", as: type)
     }
     
-    func setVariable(named: String, value: JavaScriptParameterEncodable) -> Promise<Void> {
+    func setVariable(named: String, value: JavaScriptParameterEncodable) -> AnyPublisher<Void, Error> {
         do {
             let javaScript = try "\(named) = \(value.jsEncode());"
             return evaluateJavaScript(javaScript).map { (_: Any) in () }
@@ -101,7 +109,7 @@ public extension WKWebView {
         }
     }
     
-    func runVoid(named: String, args: [JavaScriptParameterEncodable] = []) -> Promise<Void> {
+    func runVoid(named: String, args: [JavaScriptParameterEncodable] = []) -> AnyPublisher<Void, Error> {
         do {
             let params = try args
                 .map { try $0.jsEncode() }
@@ -113,7 +121,7 @@ public extension WKWebView {
         }
     }
     
-    func runReturning<T: Decodable>(named: String, args: [JavaScriptParameterEncodable] = [], as type: T.Type) -> Promise<T> {
+    func runReturning<T: Decodable>(named: String, args: [JavaScriptParameterEncodable] = [], as type: T.Type) -> AnyPublisher<T, Error> {
         do {
             let params = try args
                 .map { try $0.jsEncode() }
@@ -125,3 +133,4 @@ public extension WKWebView {
         }
     }
 }
+*/
