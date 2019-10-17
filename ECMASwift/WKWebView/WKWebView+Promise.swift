@@ -10,6 +10,7 @@ import Foundation
 import WebKit
 import PromiseKit
 
+@available(iOS, deprecated: 13.0, message: "use combine")
 extension Promise {
     public func resolve(completion: @escaping (Swift.Result<T, Error>) -> Void) {
         firstly {
@@ -22,6 +23,7 @@ extension Promise {
     }
 }
 
+@available(iOS, deprecated: 13.0, message: "use combine")
 extension WKWebView {
     func evaluateJavaScript(_ javaScriptString: String) -> Promise<Any> {
         return Promise { seal in
@@ -42,6 +44,7 @@ extension WKWebView {
     }
 }
 
+@available(iOS, deprecated: 13.0, message: "use combine")
 public extension WKWebView {
     func evaluateJavaScript(_ javaScriptString: String) -> Promise<Void> {
         return Promise { seal in
@@ -87,6 +90,7 @@ public extension WKWebView {
     }
 }
 
+@available(iOS, deprecated: 13.0, message: "use combine")
 public extension WKWebView {
     func getVariable<T: Decodable>(named: String, as type: T.Type) -> Promise<T> {
         return evaluateJavaScript("\(named);", as: type)
