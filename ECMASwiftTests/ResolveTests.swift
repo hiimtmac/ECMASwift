@@ -10,6 +10,7 @@ import XCTest
 import Combine
 @testable import ECMASwift
 
+// MARK: - PromiseKit
 class ResolveTestsPromises: ECMASwiftTestCase {
     
     func testResolveSuccess() {
@@ -45,6 +46,7 @@ class ResolveTestsPromises: ECMASwiftTestCase {
     }
 }
 
+// MARK: - Combine
 @available(iOS 13.0, *)
 class ResolveTestsCombine: ECMASwiftTestCase {
     

@@ -11,6 +11,7 @@ import Combine
 import PromiseKit
 @testable import ECMASwift
 
+// MARK: - PromiseKit
 class EvaluateWeakTestsPromises: ECMASwiftTestCase {
     
     func testGetStringVar() {
@@ -298,6 +299,7 @@ class EvaluateWeakTestsPromises: ECMASwiftTestCase {
     }
 }
 
+// MARK: - Combine
 @available(iOS 13.0, *)
 class EvaluateWeakTestsCombine: ECMASwiftTestCase {
     

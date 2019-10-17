@@ -6,7 +6,7 @@
 
 Requirements:
 - iOS 11.0+
-- Swift 5.0+
+- Swift 5.1+
 
 In your podfile
 ```ruby
@@ -24,7 +24,8 @@ end
 
 ## WKWebView
 
-Extensions using [PromiseKit](https://github.com/mxcl/PromiseKit)
+iOS 13.0 < - Extensions using [Combine](https://developer.apple.com/documentation/combine)
+iOS 13.0 > - Extensions using [PromiseKit](https://github.com/mxcl/PromiseKit)
 
 ##### Before
 ```swift
@@ -43,12 +44,17 @@ webView.evaluateJavaScript(javaScriptString, completionHandler: { (any, error) i
 ##### After
 ```swift
 webView.evaluateJavaScript("string;", as: String.self) // -> returns Promise<String>
+
+webView.evaluateJavaScript("string;", as: String.self) // -> returns AnyPublisher<String, Error>
 ```
 
 There are 2 overloads, one returning a type, and another for void returns.
 ```swift
 func evaluateJavaScript(_ javaScriptString: String) -> Promise<Void>
 func evaluateJavaScript<T: Decodable>(_ javaScriptString: String, as: T.Type) -> Promise<T>
+
+func evaluateJavaScript(_ javaScriptString: String) -> AnyPublisher<Void, Error>
+func evaluateJavaScript<T: Decodable>(_ javaScriptString: String, as: T.Type) -> AnyPublisher<T, Error>
 ```
 
 These can be chained together to do more complex things given:
@@ -72,6 +78,19 @@ firstly {
 }.catch {
     print($0) // error if there was
 }
+
+let _ = webView
+    .evaluateJavaScript("string;", as: String.self)
+    .flatMap { self.webView.evaluateJavaScript("string = \"hi there!\";") }
+    .flatMap { self.webView.evaluateJavaScript("string;", as: String.self) }
+    .sink(receiveCompletion: { result in
+        switch result {
+        case .finished: print("done")
+        case .failure(let error): print(error) // error if there was
+        }
+    }, receiveValue: {
+        print($0) // hi there!
+    })
 ```
 
 This would previously have to been accomplished with a ton of nested completion handlers creating a pyramid of doom!
@@ -89,6 +108,11 @@ func getVariable<T: Decodable>(named: String, as type: T.Type) -> Promise<T>
 func setVariable(named: String, value: JavaScriptParameterEncodable) -> Promise<Void>
 func runVoid(named: String, args: [JavaScriptParameterEncodable] = []) -> Promise<Void>
 func runReturning<T: Decodable>(named: String, args: [JavaScriptParameterEncodable] = [], as type: T.Type) -> Promise<T>
+
+func getVariable<T: Decodable>(named: String, as type: T.Type) -> AnyPublisher<T, Error>
+func setVariable(named: String, value: JavaScriptParameterEncodable) -> AnyPublisher<Void, Error>
+func runVoid(named: String, args: [JavaScriptParameterEncodable] = []) -> AnyPublisher<Void, Error>
+func runReturning<T: Decodable>(named: String, args: [JavaScriptParameterEncodable] = [], as type: T.Type) -> AnyPublisher<T, Error>
 ```
 
 These methods would simplify the above example to
@@ -106,6 +130,19 @@ firstly {
 }.catch {
     print($0) // error if there was
 }
+
+let _ = webView
+    .getVariable(named: "string", as: String.self)
+    .flatMap { self.webView.setVariable(named: "string", value: "hi there!") }
+    .flatMap { self.webView.getVariable(named: "string", as: String.self) }
+    .sink(receiveCompletion: { result in
+        switch result {
+        case .finished: print("done")
+        case .failure(let error): print(error) // error if there was
+        }
+    }, receiveValue: {
+        print($0) // hi there!
+    })
 ```
 > These are helpful as you don't have to remember about pesky `;` placement
 
@@ -169,6 +206,17 @@ firstly {
     print($0) // error if there was
 }
 
+let _ = webView
+    .runReturning(named: "returnContents", args: ["tmac"], as: String.self)
+    .sink(receiveCompletion: { result in
+        switch result {
+        case .finished: print("done")
+        case .failure(let error): print(error) // error if there was
+        }
+    }, receiveValue: {
+        print($0) // "tmac"
+    })
+
 // more complex types
 extension JSON: JavaScriptParameterEncodable {}
 
@@ -179,6 +227,17 @@ firstly {
 }.catch {
     print($0) // error if there was
 }
+
+let _ = webView
+    .runReturning(named: "returnContents", args: [JSON(name: "tmac", age: 28)], as: JSON.self)
+    .sink(receiveCompletion: { result in
+        switch result {
+        case .finished: print("done")
+        case .failure(let error): print(error) // error if there was
+        }
+    }, receiveValue: {
+        print($0) // { name: "tmac", age: 28 }
+    })
 ```
 
 ## ESWebView
@@ -276,6 +335,68 @@ class ViewController: UIViewController {
 
     deinit {
         NotificationCenter.default.removeObserver(self)
+    }
+}
+
+import UIKit
+import ECMASwift
+import Combine
+
+class ViewController: UIViewController {
+
+    var webView: ESWebView!
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        // setup webView
+
+        // something in webView triggers window.webkit.messageHandlers.ECMASwiftXXXXXXX.postMessage(...)
+        
+        let _ = NotificationCenter.default
+            .publisher(for: ESWebView.error, object: nil)
+            .setFailureType(to: ProxyError.self)
+            .tryMap { notification -> T in
+                let error = notification.userInfo!["error"] as! String
+                let attempting = notification.userInfo!["attempting"] as! String
+                throw ProxyError.error("Attempting: \(attempting) -> Error: \(error)")
+            }
+            .eraseToAnyPublisher() // AnyPublisher<T, Error>
+            
+        let messageNotification = NotificationCenter.default
+            .publisher(for: ESWebView.message, object: nil)
+            .tryMap { notification -> ESWebView.Message in
+                if let message = notification.userInfo?["message"] as? ESWebView.Message {
+                    return message
+                } else {
+                    throw ProxyError.userInfo
+                }
+            }
+            ...
+            
+        let promptNotification = NotificationCenter.default
+            .publisher(for: ESWebView.prompt, object: nil)
+            .tryMap { notification -> ESWebView.Prompt in
+                if let prompt = notification.userInfo?["prompt"] as? ESWebView.Prompt {
+                    return prompt
+                } else {
+                    throw ProxyError.userInfo
+                }
+            }
+            .flatMap { self.webView.getVariable(named: $0.name, as: String.self) }
+            ...
+            
+        let requestNotification = NotificationCenter.default
+            .publisher(for: ESWebView.request, object: nil)
+            .tryMap { notification -> ESWebView.Request in
+                if let request = notification.userInfo?["request"] as? ESWebView.Request {
+                    return request
+                } else {
+                    throw ProxyError.userInfo
+                }
+            }
+            .flatMap { self.webView.runVoid(named: $0.toHandler, args: [jsons]) }
+            ...
     }
 }
 ```
