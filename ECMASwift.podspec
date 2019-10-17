@@ -1,7 +1,7 @@
 Pod::Spec.new do |spec|
     
     spec.name         = "ECMASwift"
-    spec.version      = "0.2.0"
+    spec.version      = "0.3.0"
     spec.summary      = "ECMAScript strong typing helpers for Swift"
     spec.description  = <<-DESC
     Swift/JS helpers to get/set variables, run methods, send

@@ -44,5 +44,4 @@ class InterpolationTests: XCTestCase {
         let compare = #"var cool = "hello";"#
         XCTAssertNotEqual(string, compare)
     }
-
 }

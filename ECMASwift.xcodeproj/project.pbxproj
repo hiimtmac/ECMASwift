@@ -146,8 +146,8 @@
 				D7A4D93E23562CF8000B43E0 /* ResolveTests.swift */,
 				D7110A9622CD1BE8008C91CC /* EvaluateStrongTests.swift */,
 				D7110A9A22CD1CE9008C91CC /* ParameterEncodingTests.swift */,
-				D7110A9C22CD1D07008C91CC /* MessagingTests.swift */,
 				D7110A9E22CD1DC7008C91CC /* InterpolationTests.swift */,
+				D7110A9C22CD1D07008C91CC /* MessagingTests.swift */,
 				D7110AA022CD1DE9008C91CC /* UserScriptTests.swift */,
 				D7110A7A22CD1846008C91CC /* Info.plist */,
 				D7110A8A22CD190F008C91CC /* web */,
@@ -540,7 +540,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.2.0;
+				MARKETING_VERSION = 0.3.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.hiimtmac.ECMASwift;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
@@ -569,7 +569,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.2.0;
+				MARKETING_VERSION = 0.3.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.hiimtmac.ECMASwift;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
