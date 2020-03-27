@@ -1,5 +1,7 @@
-# pods
-Pods/
-
-# xcuserdata
-xcuserdata/
+Packages
+.build
+xcuserdata
+*.xcodeproj
+DerivedData/
+.DS_Store
+.swiftpm

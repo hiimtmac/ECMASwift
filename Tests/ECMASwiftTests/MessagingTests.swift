@@ -37,7 +37,7 @@ extension ESWebView {
     }
 }
 
-class MessagingTestsCombine: ECMASwiftTestCase {
+class MessagingTests: ECMASwiftTestCase {
 
     var messageExp: XCTestExpectation!
     var triggerExp: XCTestExpectation!

@@ -10,8 +10,7 @@ import XCTest
 import Combine
 @testable import ECMASwift
 
-// MARK: - Combine
-class ResolveTestsCombine: ECMASwiftTestCase {
+class ResolveTests: ECMASwiftTestCase {
     
     var anyCancellable: AnyCancellable?
     

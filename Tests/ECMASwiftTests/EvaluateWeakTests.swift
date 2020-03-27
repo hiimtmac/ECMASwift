@@ -10,7 +10,7 @@ import XCTest
 import Combine
 @testable import ECMASwift
 
-class EvaluateWeakTestsCombine: ECMASwiftTestCase {
+class EvaluateWeakTests: ECMASwiftTestCase {
     
     func testGetStringVar() {
         let exp = expectation(description: "string")

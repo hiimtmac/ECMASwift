@@ -16,13 +16,15 @@ class UserScriptTests: XCTestCase {
     var webView: ESWebView!
     var loadExp: XCTestExpectation!
     
+    var cancellable: AnyCancellable?
+    
     override func tearDown() {
         super.tearDown()
         webView = nil
     }
     
     func setupWebview(with scripts: [WKUserScript]) {
-        let web = Bundle(for: UserScriptTests.self).resourceURL!
+        let web = webURL()
         let url = web.appendingPathComponent("index.html")
         webView = ESWebView(frame: .zero, scripts: scripts)
         webView.navigationDelegate = self
@@ -39,9 +41,7 @@ extension UserScriptTests: WKNavigationDelegate {
     }
 }
  
-class UserScriptTestsCombine: UserScriptTests {
-    
-    var anyCancellable: AnyCancellable?
+extension UserScriptTests {
     
     func testSetNewVariableBeginning() {
         let exp = expectation(description: "setNewVarBeginning")
@@ -49,7 +49,7 @@ class UserScriptTestsCombine: UserScriptTests {
         let script = WKUserScript(source: "const cool = \(asJS: "hello");", injectionTime: .atDocumentStart, forMainFrameOnly: true)
         setupWebview(with: [script])
         
-        anyCancellable = webView
+        cancellable = webView
             .getVariable(named: "cool", as: String.self)
             .sink(receiveCompletion: { result in
                 switch result {
@@ -69,7 +69,7 @@ class UserScriptTestsCombine: UserScriptTests {
         let script = WKUserScript(source: "const cool = \(asJS: "hello");", injectionTime: .atDocumentEnd, forMainFrameOnly: true)
         setupWebview(with: [script])
         
-        anyCancellable = webView
+        cancellable = webView
             .getVariable(named: "cool", as: String.self)
             .sink(receiveCompletion: { result in
                 switch result {
@@ -92,7 +92,7 @@ class UserScriptTestsCombine: UserScriptTests {
         let script = WKUserScript(source: "string = \(asJS: "hello");", injectionTime: .atDocumentStart, forMainFrameOnly: true)
         setupWebview(with: [script])
         
-        anyCancellable = webView
+        cancellable = webView
             .getVariable(named: "string", as: String.self)
             .sink(receiveCompletion: { result in
                 switch result {
@@ -115,7 +115,7 @@ class UserScriptTestsCombine: UserScriptTests {
         let script = WKUserScript(source: "string = \(asJS: "hello");", injectionTime: .atDocumentEnd, forMainFrameOnly: true)
         setupWebview(with: [script])
         
-        anyCancellable = webView
+        cancellable = webView
             .getVariable(named: "string", as: String.self)
             .sink(receiveCompletion: { result in
                 switch result {
@@ -142,7 +142,7 @@ class UserScriptTestsCombine: UserScriptTests {
         let script = WKUserScript(source: "const cool = \(asJS: obj);", injectionTime: .atDocumentStart, forMainFrameOnly: true)
         setupWebview(with: [script])
         
-        anyCancellable = webView
+        cancellable = webView
             .getVariable(named: "cool", as: Object.self)
             .sink(receiveCompletion: { result in
                 switch result {
@@ -164,7 +164,7 @@ class UserScriptTestsCombine: UserScriptTests {
         let script = WKUserScript(source: "const cool = \(asJS: obj);", injectionTime: .atDocumentEnd, forMainFrameOnly: true)
         setupWebview(with: [script])
         
-        anyCancellable = webView
+        cancellable = webView
             .getVariable(named: "cool", as: Object.self)
             .sink(receiveCompletion: { result in
                 switch result {
@@ -187,7 +187,7 @@ class UserScriptTestsCombine: UserScriptTests {
         let script = WKUserScript(source: "json = \(asJS: obj);", injectionTime: .atDocumentStart, forMainFrameOnly: true)
         setupWebview(with: [script])
         
-        anyCancellable = webView
+        cancellable = webView
             .getVariable(named: "json", as: Object.self)
             .sink(receiveCompletion: { result in
                 switch result {
@@ -210,7 +210,7 @@ class UserScriptTestsCombine: UserScriptTests {
         let script = WKUserScript(source: "json = \(asJS: obj);", injectionTime: .atDocumentEnd, forMainFrameOnly: true)
         setupWebview(with: [script])
         
-        anyCancellable = webView
+        cancellable = webView
             .getVariable(named: "json", as: Object.self)
             .sink(receiveCompletion: { result in
                 switch result {

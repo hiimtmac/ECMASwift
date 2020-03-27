@@ -21,7 +21,7 @@ class ECMASwiftTestCase: XCTestCase {
     override func setUp() {
         super.setUp()
         
-        let web = Bundle(for: ECMASwiftTestCase.self).resourceURL!
+        let web = webURL()
         let url = web.appendingPathComponent("index.html")
         webView = ESWebView(frame: .zero)
         webView.navigationDelegate = self
