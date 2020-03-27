@@ -2,23 +2,33 @@
 
 > Goal of this library is to package error prone string functionality into stronger typed composable pieces
 
-### Installation
+## Requirements
 
-Requirements:
-- iOS 13.0+
 - Swift 5.2+
+- iOS 13.0 + / macOS 10.15 +
 
-In your podfile
+## Installation
+
+### [Swift Package Manager](https://github.com/apple/swift-package-manager)
+
+Create a `Package.swift` file.
+
+```swift
+import PackageDescription
+
+let package = Package(
+  name: "TestProject",
+  dependencies: [
+    .package(url: "https://github.com/hiimtmac/ECMASwift.git", from: "1.0.0")
+  ]
+)
+```
+
+### Cocoapods
+
 ```ruby
-platform :ios, '13.0'
-
-source 'https://github.com/CocoaPods/Specs.git'
-
-target 'MyProj' do
-    use_frameworks!
-
-    pod 'ECMASwift'
-
+target 'MyApp' do
+  pod 'ECMASwift', '~> 1.0'
 end
 ```
 
