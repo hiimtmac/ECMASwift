@@ -2,30 +2,37 @@
 
 > Goal of this library is to package error prone string functionality into stronger typed composable pieces
 
-### Installation
+## Requirements
 
-Requirements:
-- iOS 11.0+
-- Swift 5.1+
+- Swift 5.2+
+- iOS 13.0 + / macOS 10.15 +
 
-In your podfile
+## Installation
+
+### [Swift Package Manager](https://github.com/apple/swift-package-manager)
+
+Create a `Package.swift` file.
+
+```swift
+import PackageDescription
+
+let package = Package(
+  name: "TestProject",
+  dependencies: [
+    .package(url: "https://github.com/hiimtmac/ECMASwift.git", from: "1.0.0")
+  ]
+)
+```
+
+### Cocoapods
+
 ```ruby
-platform :ios, '11.0'
-
-source 'https://github.com/CocoaPods/Specs.git'
-
-target 'MyProj' do
-    use_frameworks!
-
-    pod 'ECMASwift'
-
+target 'MyApp' do
+  pod 'ECMASwift', '~> 1.0'
 end
 ```
 
 ## WKWebView
-
-iOS 13.0 < - Extensions using [Combine](https://developer.apple.com/documentation/combine)
-iOS 13.0 > - Extensions using [PromiseKit](https://github.com/mxcl/PromiseKit)
 
 ##### Before
 ```swift
@@ -43,16 +50,11 @@ webView.evaluateJavaScript(javaScriptString, completionHandler: { (any, error) i
 
 ##### After
 ```swift
-webView.evaluateJavaScript("string;", as: String.self) // -> returns Promise<String>
-
 webView.evaluateJavaScript("string;", as: String.self) // -> returns AnyPublisher<String, Error>
 ```
 
 There are 2 overloads, one returning a type, and another for void returns.
 ```swift
-func evaluateJavaScript(_ javaScriptString: String) -> Promise<Void>
-func evaluateJavaScript<T: Decodable>(_ javaScriptString: String, as: T.Type) -> Promise<T>
-
 func evaluateJavaScript(_ javaScriptString: String) -> AnyPublisher<Void, Error>
 func evaluateJavaScript<T: Decodable>(_ javaScriptString: String, as: T.Type) -> AnyPublisher<T, Error>
 ```
@@ -65,20 +67,6 @@ These can be chained together to do more complex things given:
 ```
 
 ```swift
-firstly {
-    webView.evaluateJavaScript("string;", as: String.self)
-}.get {
-    print($0) // hello
-}.then {
-    self.webView.evaluateJavaScript("string = \"hi there!\";")
-}.then {
-    self.webView.evaluateJavaScript("string;", as: String.self)
-}.get {
-    print($0) // hi there!
-}.catch {
-    print($0) // error if there was
-}
-
 let _ = webView
     .evaluateJavaScript("string;", as: String.self)
     .flatMap { self.webView.evaluateJavaScript("string = \"hi there!\";") }
@@ -104,11 +92,6 @@ Helper methods for common tasks
 - call method with return value `runReturning<T: Decodable>`
 
 ```swift
-func getVariable<T: Decodable>(named: String, as type: T.Type) -> Promise<T>
-func setVariable(named: String, value: JavaScriptParameterEncodable) -> Promise<Void>
-func runVoid(named: String, args: [JavaScriptParameterEncodable] = []) -> Promise<Void>
-func runReturning<T: Decodable>(named: String, args: [JavaScriptParameterEncodable] = [], as type: T.Type) -> Promise<T>
-
 func getVariable<T: Decodable>(named: String, as type: T.Type) -> AnyPublisher<T, Error>
 func setVariable(named: String, value: JavaScriptParameterEncodable) -> AnyPublisher<Void, Error>
 func runVoid(named: String, args: [JavaScriptParameterEncodable] = []) -> AnyPublisher<Void, Error>
@@ -117,20 +100,6 @@ func runReturning<T: Decodable>(named: String, args: [JavaScriptParameterEncodab
 
 These methods would simplify the above example to
 ```swift
-firstly {
-    webView.getVariable(named: "string", as: String.self)
-}.get {
-    print($0) // hello
-}.then { _ in
-    self.webView.setVariable(named: "string", value: "hi there!")
-}.then {
-    self.webView.getVariable(named: "string", as: String.self)
-}.get {
-    print($0) // hi there!
-}.catch {
-    print($0) // error if there was
-}
-
 let _ = webView
     .getVariable(named: "string", as: String.self)
     .flatMap { self.webView.setVariable(named: "string", value: "hi there!") }
@@ -197,15 +166,6 @@ webView.evaluateJavaScript(javaScriptString, completionHandler: { (any, error) i
 
 ##### After
 ```swift
-// simple types
-firstly {
-    webView.runReturning(named: "returnContents", args: ["tmac"], as: String.self)
-}.get {
-    print($0) // "tmac"
-}.catch {
-    print($0) // error if there was
-}
-
 let _ = webView
     .runReturning(named: "returnContents", args: ["tmac"], as: String.self)
     .sink(receiveCompletion: { result in
@@ -219,14 +179,6 @@ let _ = webView
 
 // more complex types
 extension JSON: JavaScriptParameterEncodable {}
-
-firstly {
-    webView.runReturning(named: "returnContents", args: [JSON(name: "tmac", age: 28)], as: JSON.self)
-}.get {
-    print($0) // { name: "tmac", age: 28 }
-}.catch {
-    print($0) // error if there was
-}
 
 let _ = webView
     .runReturning(named: "returnContents", args: [JSON(name: "tmac", age: 28)], as: JSON.self)
@@ -298,46 +250,6 @@ Subscribe in your view controller for any of these 3 notifications (and for a 4t
 #### Example
 
 ```swift
-import UIKit
-import ECMASwift
-import PromiseKit
-
-class ViewController: UIViewController {
-
-    var webView: ESWebView!
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        // setup webView
-
-        NotificationCenter.default.addObserver(self, selector: #selector(handleNotification(_:)), name: ESWebView.error, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(handleNotification(_:)), name: ESWebView.request, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(handleNotification(_:)), name: ESWebView.prompt, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(handleNotification(_:)), name: ESWebView.message, object: nil)
-    }
-
-    // something in webView triggers window.webkit.messageHandlers.ECMASwiftXXXXXXX.postMessage(...)
-    @objc func handleNotification(_ notification: Notification) {
-        let userInfo = notification.userInfo!
-        if let message = userInfo["message"] as? ESWebView.Message {
-            // do something with message
-        } else if let prompt = userInfo["prompt"] as? ESWebView.Prompt {
-            // webView.getVariable(named: "name", as: String.self)
-        } else if let request = userInfo["request"] as? ESWebView.Request {
-            // let jsons: [JSON] = ...
-            // webView.runVoid(named: "setPeople", args: [jsons])
-        } else {
-            print(userInfo["attempting"]) // message / prompt / request
-            print(userInfo["error"]) // error message
-        }
-    }
-
-    deinit {
-        NotificationCenter.default.removeObserver(self)
-    }
-}
-
 import UIKit
 import ECMASwift
 import Combine
