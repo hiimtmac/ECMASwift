@@ -56,7 +56,7 @@
 		D7110A9E22CD1DC7008C91CC /* InterpolationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterpolationTests.swift; sourceTree = "<group>"; };
 		D7110AA022CD1DE9008C91CC /* UserScriptTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserScriptTests.swift; sourceTree = "<group>"; };
 		D7110AA222CD20E7008C91CC /* ECMASwift.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = ECMASwift.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		D7110AA322CD2108008C91CC /* readme.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = readme.md; sourceTree = "<group>"; };
+		D7110AA322CD2108008C91CC /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		D7110AA422CD2208008C91CC /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		D7A4D93C23562AB1000B43E0 /* WKWebView+Combine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WKWebView+Combine.swift"; sourceTree = "<group>"; };
 		D7A4D93E23562CF8000B43E0 /* ResolveTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResolveTests.swift; sourceTree = "<group>"; };
@@ -85,7 +85,7 @@
 			isa = PBXGroup;
 			children = (
 				D7110AA222CD20E7008C91CC /* ECMASwift.podspec */,
-				D7110AA322CD2108008C91CC /* readme.md */,
+				D7110AA322CD2108008C91CC /* README.md */,
 				D7110AA422CD2208008C91CC /* LICENSE */,
 				D7110A6C22CD1846008C91CC /* ECMASwift */,
 				D7110A7722CD1846008C91CC /* ECMASwiftTests */,
