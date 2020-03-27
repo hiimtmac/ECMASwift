@@ -10,44 +10,7 @@ import XCTest
 import Combine
 @testable import ECMASwift
 
-// MARK: - PromiseKit
-class ResolveTestsPromises: ECMASwiftTestCase {
-    
-    func testResolveSuccess() {
-        let exp = expectation(description: "string")
-        
-        webView.evaluateJavaScript("string;", as: String.self).resolve { result in
-            switch result {
-            case .success(let str):
-                XCTAssertEqual(str, "taylor")
-            case .failure(let err):
-                XCTFail(err.localizedDescription)
-            }
-            exp.fulfill()
-        }
-        
-        wait(for: [exp], timeout: 5)
-    }
-    
-    func testResolveFails() {
-        let exp = expectation(description: "fails")
-        
-        webView.evaluateJavaScript("noExist;", as: Int.self).resolve { result in
-            switch result {
-            case .success:
-                XCTFail("should not work")
-            case .failure(let err):
-                XCTAssert(err is JavaScriptError)
-            }
-            exp.fulfill()
-        }
-        
-        wait(for: [exp], timeout: 5)
-    }
-}
-
 // MARK: - Combine
-@available(iOS 13.0, *)
 class ResolveTestsCombine: ECMASwiftTestCase {
     
     var anyCancellable: AnyCancellable?

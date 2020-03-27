@@ -3,12 +3,10 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 51;
+	objectVersion = 50;
 	objects = {
 
 /* Begin PBXBuildFile section */
-		A19DF59E508B4201B993FA68 /* Pods_ECMASwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 583DE56754318B4EA1C34B5E /* Pods_ECMASwift.framework */; };
-		D09901A84BF0EEF24D02F648 /* Pods_ECMASwiftTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ECAFDB8098A78A31784691D5 /* Pods_ECMASwiftTests.framework */; };
 		D7110A7422CD1846008C91CC /* ECMASwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7110A6A22CD1846008C91CC /* ECMASwift.framework */; };
 		D7110A7B22CD1846008C91CC /* ECMASwift.h in Headers */ = {isa = PBXBuildFile; fileRef = D7110A6D22CD1846008C91CC /* ECMASwift.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D7110A8522CD18A7008C91CC /* JavaScriptError.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7110A8422CD18A7008C91CC /* JavaScriptError.swift */; };
@@ -16,7 +14,6 @@
 		D7110A8922CD18E8008C91CC /* JavaScript+StringInterpolation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7110A8822CD18E8008C91CC /* JavaScript+StringInterpolation.swift */; };
 		D7110A8C22CD191E008C91CC /* index.html in Resources */ = {isa = PBXBuildFile; fileRef = D7110A8B22CD191E008C91CC /* index.html */; };
 		D7110A8E22CD193A008C91CC /* app.js in Resources */ = {isa = PBXBuildFile; fileRef = D7110A8D22CD193A008C91CC /* app.js */; };
-		D7110A9122CD1A2C008C91CC /* WKWebView+Promise.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7110A9022CD1A2C008C91CC /* WKWebView+Promise.swift */; };
 		D7110A9322CD1AD3008C91CC /* ESWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7110A9222CD1AD3008C91CC /* ESWebView.swift */; };
 		D7110A9522CD1BDF008C91CC /* EvaluateWeakTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7110A9422CD1BDF008C91CC /* EvaluateWeakTests.swift */; };
 		D7110A9722CD1BE8008C91CC /* EvaluateStrongTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7110A9622CD1BE8008C91CC /* EvaluateStrongTests.swift */; };
@@ -40,10 +37,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		4309596F06AD7673D7C7A773 /* Pods-ECMASwiftTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ECMASwiftTests.release.xcconfig"; path = "Target Support Files/Pods-ECMASwiftTests/Pods-ECMASwiftTests.release.xcconfig"; sourceTree = "<group>"; };
-		47A484E46E82A0501CCB4162 /* Pods-ECMASwiftTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ECMASwiftTests.debug.xcconfig"; path = "Target Support Files/Pods-ECMASwiftTests/Pods-ECMASwiftTests.debug.xcconfig"; sourceTree = "<group>"; };
-		583DE56754318B4EA1C34B5E /* Pods_ECMASwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ECMASwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		7F01DEEF4BE0ED5AC689624B /* Pods-ECMASwift.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ECMASwift.debug.xcconfig"; path = "Target Support Files/Pods-ECMASwift/Pods-ECMASwift.debug.xcconfig"; sourceTree = "<group>"; };
 		D7110A6A22CD1846008C91CC /* ECMASwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ECMASwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D7110A6D22CD1846008C91CC /* ECMASwift.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ECMASwift.h; sourceTree = "<group>"; };
 		D7110A6E22CD1846008C91CC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -54,7 +47,6 @@
 		D7110A8822CD18E8008C91CC /* JavaScript+StringInterpolation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "JavaScript+StringInterpolation.swift"; sourceTree = "<group>"; };
 		D7110A8B22CD191E008C91CC /* index.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = index.html; sourceTree = "<group>"; };
 		D7110A8D22CD193A008C91CC /* app.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = app.js; sourceTree = "<group>"; };
-		D7110A9022CD1A2C008C91CC /* WKWebView+Promise.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WKWebView+Promise.swift"; sourceTree = "<group>"; };
 		D7110A9222CD1AD3008C91CC /* ESWebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ESWebView.swift; sourceTree = "<group>"; };
 		D7110A9422CD1BDF008C91CC /* EvaluateWeakTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EvaluateWeakTests.swift; sourceTree = "<group>"; };
 		D7110A9622CD1BE8008C91CC /* EvaluateStrongTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EvaluateStrongTests.swift; sourceTree = "<group>"; };
@@ -68,8 +60,6 @@
 		D7110AA422CD2208008C91CC /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		D7A4D93C23562AB1000B43E0 /* WKWebView+Combine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WKWebView+Combine.swift"; sourceTree = "<group>"; };
 		D7A4D93E23562CF8000B43E0 /* ResolveTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResolveTests.swift; sourceTree = "<group>"; };
-		E2AD66128F6E822A7DEA6E4B /* Pods-ECMASwift.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ECMASwift.release.xcconfig"; path = "Target Support Files/Pods-ECMASwift/Pods-ECMASwift.release.xcconfig"; sourceTree = "<group>"; };
-		ECAFDB8098A78A31784691D5 /* Pods_ECMASwiftTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ECMASwiftTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,7 +67,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A19DF59E508B4201B993FA68 /* Pods_ECMASwift.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -86,22 +75,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				D7110A7422CD1846008C91CC /* ECMASwift.framework in Frameworks */,
-				D09901A84BF0EEF24D02F648 /* Pods_ECMASwiftTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		03BF3E5EB02C9148063E3F60 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				583DE56754318B4EA1C34B5E /* Pods_ECMASwift.framework */,
-				ECAFDB8098A78A31784691D5 /* Pods_ECMASwiftTests.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 		D7110A6022CD1846008C91CC = {
 			isa = PBXGroup;
 			children = (
@@ -112,7 +91,6 @@
 				D7110A7722CD1846008C91CC /* ECMASwiftTests */,
 				D7110A6B22CD1846008C91CC /* Products */,
 				DF130862F76A4669DD99ED73 /* Pods */,
-				03BF3E5EB02C9148063E3F60 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -168,7 +146,6 @@
 			isa = PBXGroup;
 			children = (
 				D7110A9222CD1AD3008C91CC /* ESWebView.swift */,
-				D7110A9022CD1A2C008C91CC /* WKWebView+Promise.swift */,
 				D7A4D93C23562AB1000B43E0 /* WKWebView+Combine.swift */,
 			);
 			path = WKWebView;
@@ -177,10 +154,6 @@
 		DF130862F76A4669DD99ED73 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				7F01DEEF4BE0ED5AC689624B /* Pods-ECMASwift.debug.xcconfig */,
-				E2AD66128F6E822A7DEA6E4B /* Pods-ECMASwift.release.xcconfig */,
-				47A484E46E82A0501CCB4162 /* Pods-ECMASwiftTests.debug.xcconfig */,
-				4309596F06AD7673D7C7A773 /* Pods-ECMASwiftTests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -203,7 +176,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = D7110A7E22CD1846008C91CC /* Build configuration list for PBXNativeTarget "ECMASwift" */;
 			buildPhases = (
-				53C19D25B5CFC6430836391D /* [CP] Check Pods Manifest.lock */,
 				D7110A6522CD1846008C91CC /* Headers */,
 				D7110A6622CD1846008C91CC /* Sources */,
 				D7110A6722CD1846008C91CC /* Frameworks */,
@@ -222,11 +194,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = D7110A8122CD1846008C91CC /* Build configuration list for PBXNativeTarget "ECMASwiftTests" */;
 			buildPhases = (
-				1DE6855C1D34F17A797EA67D /* [CP] Check Pods Manifest.lock */,
 				D7110A6F22CD1846008C91CC /* Sources */,
 				D7110A7022CD1846008C91CC /* Frameworks */,
 				D7110A7122CD1846008C91CC /* Resources */,
-				ECCA573B16131F858A020497 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -295,70 +265,6 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
-/* Begin PBXShellScriptBuildPhase section */
-		1DE6855C1D34F17A797EA67D /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-ECMASwiftTests-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		53C19D25B5CFC6430836391D /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-ECMASwift-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		ECCA573B16131F858A020497 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-ECMASwiftTests/Pods-ECMASwiftTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-ECMASwiftTests/Pods-ECMASwiftTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ECMASwiftTests/Pods-ECMASwiftTests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-/* End PBXShellScriptBuildPhase section */
-
 /* Begin PBXSourcesBuildPhase section */
 		D7110A6622CD1846008C91CC /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -368,7 +274,6 @@
 				D7110A8922CD18E8008C91CC /* JavaScript+StringInterpolation.swift in Sources */,
 				D7110A8722CD18CA008C91CC /* JavaScript+ParameterEncodable.swift in Sources */,
 				D7110A8522CD18A7008C91CC /* JavaScriptError.swift in Sources */,
-				D7110A9122CD1A2C008C91CC /* WKWebView+Promise.swift in Sources */,
 				D7A4D93D23562AB1000B43E0 /* WKWebView+Combine.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -451,7 +356,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -509,7 +414,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -523,7 +428,6 @@
 		};
 		D7110A7F22CD1846008C91CC /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7F01DEEF4BE0ED5AC689624B /* Pods-ECMASwift.debug.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
@@ -535,12 +439,13 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = ECMASwift/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.3.0;
+				MARKETING_VERSION = 0.4.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.hiimtmac.ECMASwift;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
@@ -552,7 +457,6 @@
 		};
 		D7110A8022CD1846008C91CC /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = E2AD66128F6E822A7DEA6E4B /* Pods-ECMASwift.release.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
@@ -564,12 +468,13 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = ECMASwift/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.3.0;
+				MARKETING_VERSION = 0.4.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.hiimtmac.ECMASwift;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
@@ -580,7 +485,6 @@
 		};
 		D7110A8222CD1846008C91CC /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 47A484E46E82A0501CCB4162 /* Pods-ECMASwiftTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				CODE_SIGN_STYLE = Automatic;
@@ -600,7 +504,6 @@
 		};
 		D7110A8322CD1846008C91CC /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4309596F06AD7673D7C7A773 /* Pods-ECMASwiftTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				CODE_SIGN_STYLE = Automatic;
