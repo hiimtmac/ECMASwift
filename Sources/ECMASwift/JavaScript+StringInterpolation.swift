@@ -9,7 +9,10 @@
 import Foundation
 
 public extension String.StringInterpolation {
-    mutating func appendInterpolation<T: JavaScriptParameterEncodable>(asJS: T) {
+    /// Interpolates object as javascript friendly representation
+    /// - Parameter asJS: javscript value to encode
+    /// - Warning: This will silently fail if encoding fails
+    mutating func appendInterpolation<T>(asJS: T) where T: JavaScriptParameterEncodable {
         guard let encoded = try? asJS.jsEncode() else {
             assertionFailure("Could not encode")
             return

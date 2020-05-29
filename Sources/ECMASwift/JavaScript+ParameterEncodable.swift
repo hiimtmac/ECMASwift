@@ -14,28 +14,32 @@ public protocol JavaScriptParameterEncodable {
 
 extension JavaScriptParameterEncodable where Self: Encodable {
     public func jsEncode() throws -> String {
-        let content = try JSONEncoder().encode(self)
-        return String(decoding: content, as: UTF8.self)
+        do {
+            let content = try JSONEncoder().encode(self)
+            return String(decoding: content, as: UTF8.self)
+        } catch {
+            throw JavaScriptError.encodingError(message: "Could not encode \(self)")
+        }
     }
 }
 
 extension String: JavaScriptParameterEncodable {
-    public func jsEncode() throws -> String {
+    public func jsEncode() -> String {
         return #""\#(self)""#
     }
 }
 extension Int: JavaScriptParameterEncodable {
-    public func jsEncode() throws -> String {
+    public func jsEncode() -> String {
         return "\(self)"
     }
 }
 extension Double: JavaScriptParameterEncodable {
-    public func jsEncode() throws -> String {
+    public func jsEncode() -> String {
         return "\(self)"
     }
 }
 extension Bool: JavaScriptParameterEncodable {
-    public func jsEncode() throws -> String {
+    public func jsEncode() -> String {
         return "\(self)"
     }
 }
@@ -45,6 +49,7 @@ extension Array: JavaScriptParameterEncodable where Element: JavaScriptParameter
         let joins = try self
             .map { try $0.jsEncode() }
             .joined(separator: ", ")
+        
         return "[\(joins)]"
     }
 }
