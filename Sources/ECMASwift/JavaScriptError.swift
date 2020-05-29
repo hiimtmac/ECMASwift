@@ -13,6 +13,7 @@ let kExceptionLine = "WKJavaScriptExceptionLineNumber"
 let kExceptionColumn = "WKJavaScriptExceptionColumnNumber"
 
 public enum JavaScriptError: Error {
+    case invalidCallingConvention(message: String)
     case unknown
     case unexpectedResult(message: String)
     case encodingError(message: String)
@@ -37,11 +38,12 @@ extension JavaScriptError {
 extension JavaScriptError: LocalizedError {
     public var errorDescription: String? {
         switch self {
+        case .invalidCallingConvention(let message): return "Invalid Calling Convention: \(message)"
         case .unexpectedResult(let message): return "Unexpected Result: \(message)"
         case .encodingError(let message): return "Encoding Error: \(message)"
         case .decodingError(let message): return "Decoding Error: \(message)"
         case .javascriptException(let message, let line, let column): return "Javascript Exception: \(message) (line: \(line), column: \(column))"
-        default: return "Unknown"
+        case .unknown: return "Unknown"
         }
     }
 }

@@ -23,7 +23,23 @@ function noResponse() {}
 function returnContents(contents) {
     return contents;
 }
+function nullableResponse(contents, returning) {
+    if (returning) {
+        return contents;
+    } else {
+        return null;
+    }
+}
+function undefinedResponse(contents, returning) {
+    if (returning) {
+        return contents;
+    } else {
+        return undefined;
+    }
+}
 
+var undefinable = undefined;
+var nullable = null;
 var string = "taylor";
 var int = 27;
 var double = 10.5;

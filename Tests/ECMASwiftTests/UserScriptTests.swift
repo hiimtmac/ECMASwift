@@ -50,15 +50,8 @@ extension UserScriptTests {
         setupWebview(with: [script])
         
         cancellable = webView
-            .getVariable(named: "cool", as: String.self)
-            .sink(receiveCompletion: { result in
-                switch result {
-                case .finished: exp.fulfill()
-                case .failure(let error): XCTFail(error.localizedDescription)
-                }
-            }, receiveValue: {
-                XCTAssertEqual($0, "hello")
-            })
+            .getVariable(named: "cool")
+            .sinkTest(equalTo: "hello", on: exp)
         
         wait(for: [exp], timeout: 5)
     }
@@ -70,15 +63,8 @@ extension UserScriptTests {
         setupWebview(with: [script])
         
         cancellable = webView
-            .getVariable(named: "cool", as: String.self)
-            .sink(receiveCompletion: { result in
-                switch result {
-                case .finished: exp.fulfill()
-                case .failure(let error): XCTFail(error.localizedDescription)
-                }
-            }, receiveValue: {
-                XCTAssertEqual($0, "hello")
-            })
+            .getVariable(named: "cool")
+            .sinkTest(equalTo: "hello", on: exp)
         
         wait(for: [exp], timeout: 5)
     }
@@ -93,15 +79,8 @@ extension UserScriptTests {
         setupWebview(with: [script])
         
         cancellable = webView
-            .getVariable(named: "string", as: String.self)
-            .sink(receiveCompletion: { result in
-                switch result {
-                case .finished: exp.fulfill()
-                case .failure(let error): XCTFail(error.localizedDescription)
-                }
-            }, receiveValue: {
-                XCTAssertEqual($0, "taylor")
-            })
+            .getVariable(named: "string")
+            .sinkTest(equalTo: "taylor", on: exp)
         
         wait(for: [exp], timeout: 5)
     }
@@ -116,20 +95,13 @@ extension UserScriptTests {
         setupWebview(with: [script])
         
         cancellable = webView
-            .getVariable(named: "string", as: String.self)
-            .sink(receiveCompletion: { result in
-                switch result {
-                case .finished: exp.fulfill()
-                case .failure(let error): XCTFail(error.localizedDescription)
-                }
-            }, receiveValue: {
-                XCTAssertEqual($0, "hello")
-            })
+            .getVariable(named: "string")
+            .sinkTest(equalTo: "hello", on: exp)
         
         wait(for: [exp], timeout: 5)
     }
     
-    struct Object: Codable, JavaScriptParameterEncodable {
+    struct Object: Equatable, Codable, JavaScriptParameterEncodable {
         let name: String
         let age: Int
     }
@@ -143,15 +115,8 @@ extension UserScriptTests {
         setupWebview(with: [script])
         
         cancellable = webView
-            .getVariable(named: "cool", as: Object.self)
-            .sink(receiveCompletion: { result in
-                switch result {
-                case .finished: exp.fulfill()
-                case .failure(let error): XCTFail(error.localizedDescription)
-                }
-            }, receiveValue: {
-                XCTAssertEqual($0.name, "connor")
-            })
+            .getVariable(named: "cool")
+            .sinkTest(equalTo: obj, on: exp)
         
         wait(for: [exp], timeout: 5)
     }
@@ -165,15 +130,8 @@ extension UserScriptTests {
         setupWebview(with: [script])
         
         cancellable = webView
-            .getVariable(named: "cool", as: Object.self)
-            .sink(receiveCompletion: { result in
-                switch result {
-                case .finished: exp.fulfill()
-                case .failure(let error): XCTFail(error.localizedDescription)
-                }
-            }, receiveValue: {
-                XCTAssertEqual($0.name, "connor")
-            })
+            .getVariable(named: "cool")
+            .sinkTest(equalTo: obj, on: exp)
         
         wait(for: [exp], timeout: 5)
     }
@@ -181,22 +139,15 @@ extension UserScriptTests {
     func testSetExistingObjectBeginning() {
         let exp = expectation(description: "setExistingObjectBeginning")
         
-        let obj = Object(name: "connor", age: 24)
+        let compare = Object(name: "connor", age: 24)
         
         // see existing variable tests above
-        let script = WKUserScript(source: "json = \(asJS: obj);", injectionTime: .atDocumentStart, forMainFrameOnly: true)
+        let script = WKUserScript(source: "newJson = \(asJS: compare);", injectionTime: .atDocumentStart, forMainFrameOnly: true)
         setupWebview(with: [script])
         
         cancellable = webView
-            .getVariable(named: "json", as: Object.self)
-            .sink(receiveCompletion: { result in
-                switch result {
-                case .finished: exp.fulfill()
-                case .failure(let error): XCTFail(error.localizedDescription)
-                }
-            }, receiveValue: {
-                XCTAssertEqual($0.name, "tmac")
-            })
+            .getVariable(named: "newJson")
+            .sinkTest(equalTo: compare, on: exp)
         
         wait(for: [exp], timeout: 5)
     }
@@ -210,16 +161,11 @@ extension UserScriptTests {
         let script = WKUserScript(source: "json = \(asJS: obj);", injectionTime: .atDocumentEnd, forMainFrameOnly: true)
         setupWebview(with: [script])
         
+        let comp = Object(name: "connor", age: 24)
+        
         cancellable = webView
-            .getVariable(named: "json", as: Object.self)
-            .sink(receiveCompletion: { result in
-                switch result {
-                case .finished: exp.fulfill()
-                case .failure(let error): XCTFail(error.localizedDescription)
-                }
-            }, receiveValue: {
-                XCTAssertEqual($0.name, "connor")
-            })
+            .getVariable(named: "json")
+            .sinkTest(equalTo: comp, on: exp)
         
         wait(for: [exp], timeout: 5)
     }

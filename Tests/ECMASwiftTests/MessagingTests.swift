@@ -49,7 +49,7 @@ class MessagingTests: ECMASwiftTestCase {
         triggerExp = expectation(description: "trigger")
     }
     
-    struct Person: Codable, JavaScriptParameterEncodable {
+    struct Person: Equatable, Codable, JavaScriptParameterEncodable {
         let name: String
         let age: Int
     }
@@ -96,9 +96,11 @@ class MessagingTests: ECMASwiftTestCase {
     func testPromptVariable() {
         let payload = ESWebView.Prompt(name: "json", type: .variable)
         
+        let obj = Person(name: "tmac", age: 27)
+        
         cancellable = Publishers
             .Zip(webView.triggerMessage(handler: .prompt, message: payload), webView.waitForPrompt())
-            .flatMap { self.webView.getVariable(named: $1.name, as: Person.self) }
+            .flatMap { self.webView.getVariable(named: $1.name) }
             .sink(receiveCompletion: { result in
                 switch result {
                 case .finished:
@@ -107,8 +109,7 @@ class MessagingTests: ECMASwiftTestCase {
                 case .failure(let error): XCTFail(error.localizedDescription)
                 }
             }, receiveValue: {
-                XCTAssertEqual($0.age, 27)
-                XCTAssertEqual($0.name, "tmac")
+                XCTAssertEqual($0, obj)
             })
         
         wait(for: [messageExp, triggerExp], timeout: 5)
@@ -117,9 +118,11 @@ class MessagingTests: ECMASwiftTestCase {
     func testPromptFunction() {
         let payload = ESWebView.Prompt(name: "jsonResponse", type: .function)
 
+        let obj = Person(name: "tmac", age: 27)
+        
         cancellable = Publishers
             .Zip(webView.triggerMessage(handler: .prompt, message: payload), webView.waitForPrompt())
-            .flatMap { self.webView.runReturning(named: $1.name, as: Person.self) }
+            .flatMap { self.webView.runReturning(named: $1.name) }
             .sink(receiveCompletion: { result in
                 switch result {
                 case .finished:
@@ -128,8 +131,7 @@ class MessagingTests: ECMASwiftTestCase {
                 case .failure(let error): XCTFail(error.localizedDescription)
                 }
             }, receiveValue: {
-                XCTAssertEqual($0.age, 27)
-                XCTAssertEqual($0.name, "tmac")
+                XCTAssertEqual($0, obj)
             })
         
         wait(for: [messageExp, triggerExp], timeout: 5)
@@ -166,7 +168,7 @@ class MessagingTests: ECMASwiftTestCase {
         
         cancellable = Publishers
             .Zip(webView.triggerMessage(handler: .request, message: payload), webView.waitForRequest())
-            .flatMap { self.webView.runReturning(named: $1.toHandler, args: [people], as: [Person].self) }
+            .flatMap { self.webView.runReturning(named: $1.toHandler, args: [people]) }
             .sink(receiveCompletion: { result in
                 switch result {
                 case .finished:
@@ -175,7 +177,7 @@ class MessagingTests: ECMASwiftTestCase {
                 case .failure(let error): XCTFail(error.localizedDescription)
                 }
             }, receiveValue: {
-                   XCTAssertEqual($0.count, 3)
+                   XCTAssertEqual($0, people)
             })
         
         wait(for: [messageExp, triggerExp], timeout: 5)

@@ -11,23 +11,23 @@ import XCTest
 
 class ParameterEncodingTests: XCTestCase {
 
-    func testString() throws {
-        let param = try "hello".jsEncode()
+    func testString() {
+        let param = "hello".jsEncode()
         XCTAssertEqual(param, #""hello""#)
     }
     
-    func testInt() throws {
-        let param = try 1.jsEncode()
+    func testInt() {
+        let param = 1.jsEncode()
         XCTAssertEqual(param, "1")
     }
     
-    func testDouble() throws {
-        let param = try 2.5.jsEncode()
+    func testDouble() {
+        let param = 2.5.jsEncode()
         XCTAssertEqual(param, "2.5")
     }
     
-    func testBool() throws {
-        let param = try true.jsEncode()
+    func testBool() {
+        let param = true.jsEncode()
         XCTAssertEqual(param, "true")
     }
     
