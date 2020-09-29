@@ -1,7 +1,7 @@
 Pod::Spec.new do |spec|
     
     spec.name         = "ECMASwift"
-    spec.version      = "1.1.0"
+    spec.version      = "1.2.0"
     spec.summary      = "ECMAScript strong typing helpers for Swift"
     spec.description  = <<-DESC
     Swift/JS helpers to get/set variables, run methods, send
@@ -16,7 +16,7 @@ Pod::Spec.new do |spec|
     spec.source             = { :git => "https://github.com/hiimtmac/ECMASwift.git", :tag => "#{spec.version}" }
     spec.source_files       = "Sources/ECMASwift/**/*.swift"
     spec.requires_arc       = true
-    spec.swift_version      = "5.2"
+    spec.swift_version      = "5.3"
     spec.framework  = "WebKit"
     
 end

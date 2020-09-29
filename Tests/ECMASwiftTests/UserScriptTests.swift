@@ -7,8 +7,6 @@
 //
 
 import XCTest
-import Combine
-import WebKit
 @testable import ECMASwift
 
 class UserScriptTests: XCTestCase {
