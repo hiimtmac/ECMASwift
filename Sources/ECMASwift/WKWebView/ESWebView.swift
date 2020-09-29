@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import WebKit
 
 private let kMessage = "ECMASwiftMessage"
 private let kPrompt = "ECMASwiftPrompt"

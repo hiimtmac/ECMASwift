@@ -7,8 +7,6 @@
 //
 
 import XCTest
-import WebKit
-import Combine
 import ECMASwift
 
 class ECMASwiftTestCase: XCTestCase {

@@ -7,8 +7,6 @@
 //
 
 import Foundation
-import WebKit
-import Combine
 
 extension AnyPublisher {
     /// Sinks publisher into a `Result<Output, Failure>` object such that `.finished` case does not have to be handled
