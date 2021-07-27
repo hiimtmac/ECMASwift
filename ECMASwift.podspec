@@ -16,7 +16,7 @@ Pod::Spec.new do |spec|
     spec.source             = { :git => "https://github.com/hiimtmac/ECMASwift.git", :tag => "#{spec.version}" }
     spec.source_files       = "Sources/ECMASwift/**/*.swift"
     spec.requires_arc       = true
-    spec.swift_version      = "5.3"
+    spec.swift_version      = "5.4"
     spec.framework  = "WebKit"
     
 end
