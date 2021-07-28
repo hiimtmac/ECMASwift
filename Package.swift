@@ -1,4 +1,4 @@
-// swift-tools-version:5.3
+// swift-tools-version:5.4
 // The swift-tools-version declares the minimum version of Swift required to build this package.
 
 import PackageDescription
@@ -6,7 +6,8 @@ import PackageDescription
 let package = Package(
     name: "ECMASwift",
     platforms: [
-        .macOS(.v10_15), .iOS(.v13)
+        .macOS(.v10_15),
+        .iOS(.v13)
     ],
     products: [
         .library(name: "ECMASwift", targets: ["ECMASwift"]),

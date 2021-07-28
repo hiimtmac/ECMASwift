@@ -13,7 +13,7 @@ extension AnyPublisher {
     /// - Parameter completion: result handler
     /// - Returns: cancellable
     public func resolve(completion: @escaping (Result<Output, Failure>) -> Void) -> AnyCancellable {
-        return sink(receiveCompletion: { res in
+        sink(receiveCompletion: { res in
             switch res {
             case .finished: break
             case .failure(let error): completion(.failure(error))
@@ -26,7 +26,7 @@ extension AnyPublisher {
 
 extension WKWebView {
     func evaluateJavaScript(_ javaScriptString: String) -> AnyPublisher<Any?, Error> {
-        return Future<Any?, Error> { promise in
+        Future<Any?, Error> { promise in
             self.evaluateJavaScript(javaScriptString, completionHandler: { (any, error) in
                 if let error = error {
                     if let jsError = JavaScriptError(error: error) {
@@ -48,7 +48,7 @@ public extension WKWebView {
     /// - Parameter javaScriptString: javascript string to run (this is not js escaped)
     /// - Returns: Void publisher
     func evaluateJavaScript(_ javaScriptString: String) -> AnyPublisher<Void, Error> {
-        return evaluateJavaScript(javaScriptString)
+        evaluateJavaScript(javaScriptString)
             // need to explicitly state `(any: Any?)` otherwise calls itself
             .tryMap { (any: Any?) in
                 // void function should not return anything
@@ -65,7 +65,7 @@ public extension WKWebView {
     ///   - as: desired type to return to attempt decoding
     /// - Returns: T publisher
     func evaluateJavaScript<T: Decodable>(_ javaScriptString: String) -> AnyPublisher<T, Error> {
-        return evaluateJavaScript(javaScriptString)
+        evaluateJavaScript(javaScriptString)
             .tryMap { (any: Any?) in
                 
                 // check if `T` is actually `Optional<T>`
@@ -127,7 +127,7 @@ public extension WKWebView {
     ///   - type: desired type to return to attempt decoding
     /// - Returns: `T` publisher
     func getVariable<T: Decodable>(named: String) -> AnyPublisher<T, Error> {
-        return evaluateJavaScript("\(named);")
+        evaluateJavaScript("\(named);")
     }
     
     /// Sets the value of javascript variable from webview
@@ -140,7 +140,7 @@ public extension WKWebView {
     ///   - value: value set the variable to
     /// - Returns: Void publisher
     func setVariable(named: String, value: JavaScriptParameterEncodable) -> AnyPublisher<Void, Error> {
-        return Result {
+        Result {
             try "\(named) = \(value.jsEncode());"
         }
         .publisher
@@ -160,7 +160,7 @@ public extension WKWebView {
     /// - Returns: Void publisher
     /// - Warning: This will return with an error if the method actually returns any value
     func runVoid(named: String, args: [JavaScriptParameterEncodable] = []) -> AnyPublisher<Void, Error> {
-        return Result {
+        Result {
             let params = try args
                 .map { try $0.jsEncode() }
                 .joined(separator: ", ")
@@ -183,7 +183,7 @@ public extension WKWebView {
     ///   - type: desired type to return to attempt decoding
     /// - Returns: `T` publisher
     func runReturning<T: Decodable>(named: String, args: [JavaScriptParameterEncodable] = []) -> AnyPublisher<T, Error> {
-        return Result {
+        Result {
             let params = try args
                 .map { try $0.jsEncode() }
                 .joined(separator: ", ")

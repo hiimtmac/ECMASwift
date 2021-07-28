@@ -15,8 +15,8 @@ class ResolveTests: ECMASwiftTestCase {
     
     func testResolveSuccess() {
         let exp = expectation(description: "string")
-                
-        anyCancellable = webView.evaluateJavaScript("string;").resolve { result in
+        
+        anyCancellable = webView.evaluateJavaScript("string;").resolve { (result: Result<Any?, Error>) in
             switch result {
             case .success(let str):
                 XCTAssertEqual(str as? String, "taylor")
@@ -32,7 +32,7 @@ class ResolveTests: ECMASwiftTestCase {
     func testResolveFails() {
         let exp = expectation(description: "fails")
         
-        anyCancellable = webView.evaluateJavaScript("noExist;").resolve { result in
+        anyCancellable = webView.evaluateJavaScript("noExist;").resolve { (result: Result<Any?, Error>) in
             switch result {
             case .success:
                 XCTFail("should not work")

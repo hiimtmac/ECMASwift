@@ -463,6 +463,8 @@ class EvaluateWeakTests: ECMASwiftTestCase {
         
         cancellable = webView
             .evaluateJavaScript("fails();")
+            .eraseToAnyPublisher()
+            .map { (val: Void) in val }
             .sink(receiveCompletion: { result in
                 switch result {
                 case .finished: exp.fulfill()
