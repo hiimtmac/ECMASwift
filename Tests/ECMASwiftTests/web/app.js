@@ -38,6 +38,22 @@ function undefinedResponse(contents, returning) {
     }
 }
 
+function triggerMessage() {
+    window.webkit.messageHandlers.ECMASwiftMessage.postMessage({"message":"hello!"});
+}
+function triggerRequestVoid() {
+    window.webkit.messageHandlers.ECMASwiftRequest.postMessage({"object":"Jobs","toHandler":"setJobs","type":"function"});
+}
+function triggerRequestReturn() {
+    window.webkit.messageHandlers.ECMASwiftRequest.postMessage({"object":"Person","toHandler":"returnContents","type":"function"});
+}
+function triggerPromptVariable() {
+    window.webkit.messageHandlers.ECMASwiftPrompt.postMessage({"name":"json","type":"variable"});
+}
+function triggerPromptFunction() {
+    window.webkit.messageHandlers.ECMASwiftPrompt.postMessage({"name":"jsonResponse","type":"function"});
+}
+
 var undefinable = undefined;
 var nullable = null;
 var string = "taylor";

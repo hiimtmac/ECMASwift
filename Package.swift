@@ -6,7 +6,8 @@ import PackageDescription
 let package = Package(
     name: "ECMASwift",
     platforms: [
-        .macOS(.v10_15), .iOS(.v13)
+        .macOS(.v10_15),
+        .iOS(.v13)
     ],
     products: [
         .library(name: "ECMASwift", targets: ["ECMASwift"]),

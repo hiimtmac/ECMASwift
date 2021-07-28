@@ -27,14 +27,6 @@ extension ESWebView.Message: JavaScriptParameterEncodable {}
 extension ESWebView.Prompt: JavaScriptParameterEncodable {}
 extension ESWebView.Request: JavaScriptParameterEncodable {}
 
-extension ESWebView {
-    enum Handler: String {
-        case message = "ECMASwiftMessage"
-        case prompt = "ECMASwiftPrompt"
-        case request = "ECMASwiftRequest"
-    }
-}
-
 class MessagingTests: ECMASwiftTestCase {
 
     var messageExp: XCTestExpectation!
@@ -53,16 +45,15 @@ class MessagingTests: ECMASwiftTestCase {
     }
     
     func testMessage() {
-        let payload = ESWebView.Message(message: "hello!")
-        
         cancellable = Publishers
-            .Zip(webView.triggerMessage(handler: .message, message: payload), webView.waitForMessage())
+            .Zip(webView.runVoid(named: "triggerMessage"), webView.waitForMessage())
             .sink(receiveCompletion: { result in
                 switch result {
                 case .finished:
                     self.messageExp.fulfill()
                     self.triggerExp.fulfill()
-                case .failure(let error): XCTFail(error.localizedDescription)
+                case .failure(let error):
+                    XCTFail(error.localizedDescription)
                 }
             }, receiveValue: {
                 XCTAssertEqual($1.message, "hello!")
@@ -72,16 +63,15 @@ class MessagingTests: ECMASwiftTestCase {
     }
     
     func testPrompt() {
-        let payload = ESWebView.Prompt(name: "json", type: .variable)
-        
         cancellable = Publishers
-            .Zip(webView.triggerMessage(handler: .prompt, message: payload), webView.waitForPrompt())
+            .Zip(webView.runVoid(named: "triggerPromptVariable"), webView.waitForPrompt())
             .sink(receiveCompletion: { result in
                 switch result {
                 case .finished:
                     self.messageExp.fulfill()
                     self.triggerExp.fulfill()
-                case .failure(let error): XCTFail(error.localizedDescription)
+                case .failure(let error):
+                    XCTFail(error.localizedDescription)
                 }
             }, receiveValue: {
                 XCTAssertEqual($1.name, "json")
@@ -92,12 +82,10 @@ class MessagingTests: ECMASwiftTestCase {
     }
     
     func testPromptVariable() {
-        let payload = ESWebView.Prompt(name: "json", type: .variable)
-        
         let obj = Person(name: "tmac", age: 27)
         
         cancellable = Publishers
-            .Zip(webView.triggerMessage(handler: .prompt, message: payload), webView.waitForPrompt())
+            .Zip(webView.runVoid(named: "triggerPromptVariable"), webView.waitForPrompt())
             .flatMap { self.webView.getVariable(named: $1.name) }
             .sink(receiveCompletion: { result in
                 switch result {
@@ -114,12 +102,10 @@ class MessagingTests: ECMASwiftTestCase {
     }
     
     func testPromptFunction() {
-        let payload = ESWebView.Prompt(name: "jsonResponse", type: .function)
-
         let obj = Person(name: "tmac", age: 27)
         
         cancellable = Publishers
-            .Zip(webView.triggerMessage(handler: .prompt, message: payload), webView.waitForPrompt())
+            .Zip(webView.runVoid(named: "triggerPromptFunction"), webView.waitForPrompt())
             .flatMap { self.webView.runReturning(named: $1.name) }
             .sink(receiveCompletion: { result in
                 switch result {
@@ -136,10 +122,8 @@ class MessagingTests: ECMASwiftTestCase {
     }
     
     func testRequest() {
-        let payload = ESWebView.Request(object: "Jobs", predicate: nil, toHandler: "setJobs", type: .function)
-
         cancellable = Publishers
-            .Zip(webView.triggerMessage(handler: .request, message: payload), webView.waitForRequest())
+            .Zip(webView.runVoid(named: "triggerRequestVoid"), webView.waitForRequest())
             .sink(receiveCompletion: { result in
                 switch result {
                 case .finished:
@@ -151,7 +135,7 @@ class MessagingTests: ECMASwiftTestCase {
                 XCTAssertEqual($1.object, "Jobs")
                 XCTAssertEqual($1.predicate, nil)
             })
-        
+
         wait(for: [messageExp, triggerExp], timeout: 5)
     }
     
@@ -161,11 +145,9 @@ class MessagingTests: ECMASwiftTestCase {
             Person(name: "Connor", age: 24),
             Person(name: "Jordyn", age: 21)
         ]
-        
-        let payload = ESWebView.Request(object: "Person", predicate: nil, toHandler: "returnContents", type: .function)
-        
+
         cancellable = Publishers
-            .Zip(webView.triggerMessage(handler: .request, message: payload), webView.waitForRequest())
+            .Zip(webView.runVoid(named: "triggerRequestReturn"), webView.waitForRequest())
             .flatMap { self.webView.runReturning(named: $1.toHandler, args: [people]) }
             .sink(receiveCompletion: { result in
                 switch result {
@@ -177,7 +159,7 @@ class MessagingTests: ECMASwiftTestCase {
             }, receiveValue: {
                    XCTAssertEqual($0, people)
             })
-        
+
         wait(for: [messageExp, triggerExp], timeout: 5)
     }
 }
@@ -193,10 +175,6 @@ extension ESWebView {
 
     func waitForPrompt() -> AnyPublisher<ESWebView.Prompt, Error> {
         return NotificationProxyCombine<ESWebView.Prompt>(key: "prompt", notification: ESWebView.prompt).publisher
-    }
-
-    func triggerMessage(handler: Handler, message: JavaScriptParameterEncodable) -> AnyPublisher<Void, Error> {
-        return runVoid(named: "window.webkit.messageHandlers.\(handler.rawValue).postMessage", args: [message])
     }
 }
 
