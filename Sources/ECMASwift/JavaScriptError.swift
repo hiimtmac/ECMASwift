@@ -1,10 +1,5 @@
-//
-//  JavaScriptError.swift
-//  ECMASwift
-//
-//  Created by Taylor McIntyre on 2019-07-03.
-//  Copyright © 2019 hiimtmac. All rights reserved.
-//
+// JavaScriptError.swift
+// Copyright © 2022 hiimtmac
 
 import Foundation
 
@@ -38,11 +33,11 @@ extension JavaScriptError {
 extension JavaScriptError: LocalizedError {
     public var errorDescription: String? {
         switch self {
-        case .invalidCallingConvention(let message): return "Invalid Calling Convention: \(message)"
-        case .unexpectedResult(let message): return "Unexpected Result: \(message)"
-        case .encodingError(let message): return "Encoding Error: \(message)"
-        case .decodingError(let message): return "Decoding Error: \(message)"
-        case .javascriptException(let message, let line, let column): return "Javascript Exception: \(message) (line: \(line), column: \(column))"
+        case let .invalidCallingConvention(message): return "Invalid Calling Convention: \(message)"
+        case let .unexpectedResult(message): return "Unexpected Result: \(message)"
+        case let .encodingError(message): return "Encoding Error: \(message)"
+        case let .decodingError(message): return "Decoding Error: \(message)"
+        case let .javascriptException(message, line, column): return "Javascript Exception: \(message) (line: \(line), column: \(column))"
         case .unknown: return "Unknown"
         }
     }

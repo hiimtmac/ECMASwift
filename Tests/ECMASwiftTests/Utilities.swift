@@ -1,9 +1,5 @@
-//
-//  File.swift
-//  
-//
-//  Created by Taylor McIntyre on 2020-03-27.
-//
+// Utilities.swift
+// Copyright © 2022 hiimtmac
 
 import XCTest
 

@@ -27,8 +27,8 @@ jobs:
         uses: actions/cache@v2
         with:
           path: .build
-          key: ${{ runner.os }}-${{ matrix.images }}-spm-v2
-          restore-keys: ${{ runner.os }}-${{ matrix.images }}-spm-
+          key: ${{ runner.os }}-${{ matrix.xcode }}-spm-v2
+          restore-keys: ${{ runner.os }}-${{ matrix.xcode }}-spm-
       - name: Build & Test
         run: |
           swift test --parallel --sanitize=thread \

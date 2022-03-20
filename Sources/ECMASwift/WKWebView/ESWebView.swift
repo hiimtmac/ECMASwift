@@ -1,10 +1,5 @@
-//
-//  ESWebView.swift
-//  ECMASwift
-//
-//  Created by Taylor McIntyre on 2019-07-03.
-//  Copyright © 2019 hiimtmac. All rights reserved.
-//
+// ESWebView.swift
+// Copyright © 2022 hiimtmac
 
 import Foundation
 
@@ -13,42 +8,42 @@ private let kPrompt = "ECMASwiftPrompt"
 private let kRequest = "ECMASwiftRequest"
 
 public class ESWebView: WKWebView {
-    
     public static let message = Notification.Name("ECMASwiftMessage")
     public static let prompt = Notification.Name("ECMASwiftPrompt")
     public static let request = Notification.Name("ECMASwiftRequest")
     public static let unknown = Notification.Name("ECMASwiftUnknown")
     public static let error = Notification.Name("ECMASwiftError")
-    
+
     public var handleAlertPanel: ((_ message: String, _ completionHandler: @escaping () -> Void) -> Void)?
     public var handleConfirmPanel: ((_ message: String, _ completionHandler: @escaping (Bool) -> Void) -> Void)?
     public var handleTextInputPanel: ((_ prompt: String, _ defaultText: String?, _ completionHandler: @escaping (String?) -> Void) -> Void)?
-    
+
     public init(frame: CGRect, scripts: [WKUserScript] = []) {
         let preferences = WKPreferences()
         preferences.setValue(true, forKey: "allowFileAccessFromFileURLs")
-        
+
         let userController = WKUserContentController()
         for script in scripts {
             userController.addUserScript(script)
         }
-        
+
         let config = WKWebViewConfiguration()
         config.preferences = preferences
         config.userContentController = userController
-        
+
         super.init(frame: frame, configuration: config)
-        
+
         userController.add(self, name: kMessage)
         userController.add(self, name: kPrompt)
         userController.add(self, name: kRequest)
         uiDelegate = self
     }
-    
-    required init?(coder: NSCoder) {
+
+    @available(*, unavailable)
+    required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     deinit {
         configuration.userContentController.removeScriptMessageHandler(forName: kMessage)
         configuration.userContentController.removeScriptMessageHandler(forName: kPrompt)
@@ -57,7 +52,7 @@ public class ESWebView: WKWebView {
 }
 
 extension ESWebView: WKScriptMessageHandler {
-    public func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
+    public func userContentController(_: WKUserContentController, didReceive message: WKScriptMessage) {
         switch message.name {
         case kMessage:
             do {
@@ -87,23 +82,23 @@ extension ESWebView: WKScriptMessageHandler {
             NotificationCenter.default.post(name: ESWebView.unknown, object: nil, userInfo: ["name": message.name, "body": message.body])
         }
     }
-    
+
     public struct Message: Codable {
         public let message: String
     }
-    
+
     public struct Prompt: Codable {
         public let name: String
         public let type: HandlerType
     }
-    
+
     public struct Request: Codable {
         public let object: String
         public let predicate: String?
         public let toHandler: String
         public let type: HandlerType
     }
-    
+
     public enum HandlerType: String, Codable {
         case variable
         case function
@@ -111,23 +106,23 @@ extension ESWebView: WKScriptMessageHandler {
 }
 
 extension ESWebView: WKUIDelegate {
-    public func webView(_ webView: WKWebView, runJavaScriptAlertPanelWithMessage message: String, initiatedByFrame frame: WKFrameInfo, completionHandler: @escaping () -> Void) {
+    public func webView(_: WKWebView, runJavaScriptAlertPanelWithMessage message: String, initiatedByFrame _: WKFrameInfo, completionHandler: @escaping () -> Void) {
         if let handleAlertPanel = handleAlertPanel {
             handleAlertPanel(message, completionHandler)
         } else {
             completionHandler()
         }
     }
-    
-    public func webView(_ webView: WKWebView, runJavaScriptConfirmPanelWithMessage message: String, initiatedByFrame frame: WKFrameInfo, completionHandler: @escaping (Bool) -> Void) {
+
+    public func webView(_: WKWebView, runJavaScriptConfirmPanelWithMessage message: String, initiatedByFrame _: WKFrameInfo, completionHandler: @escaping (Bool) -> Void) {
         if let handleConfirmPanel = handleConfirmPanel {
             handleConfirmPanel(message, completionHandler)
         } else {
             completionHandler(false)
         }
     }
-    
-    public func webView(_ webView: WKWebView, runJavaScriptTextInputPanelWithPrompt prompt: String, defaultText: String?, initiatedByFrame frame: WKFrameInfo, completionHandler: @escaping (String?) -> Void) {
+
+    public func webView(_: WKWebView, runJavaScriptTextInputPanelWithPrompt prompt: String, defaultText: String?, initiatedByFrame _: WKFrameInfo, completionHandler: @escaping (String?) -> Void) {
         if let handleTextInputPanel = handleTextInputPanel {
             handleTextInputPanel(prompt, defaultText, completionHandler)
         } else {

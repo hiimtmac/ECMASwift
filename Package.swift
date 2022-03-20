@@ -7,7 +7,7 @@ let package = Package(
     name: "ECMASwift",
     platforms: [
         .macOS(.v10_15),
-        .iOS(.v13)
+        .iOS(.v13),
     ],
     products: [
         .library(name: "ECMASwift", targets: ["ECMASwift"]),
@@ -18,10 +18,10 @@ let package = Package(
         .testTarget(
             name: "ECMASwiftTests",
             dependencies: [
-                .target(name: "ECMASwift")
+                .target(name: "ECMASwift"),
             ],
             resources: [
-                .copy("web")
+                .copy("web"),
             ]
         ),
     ]
