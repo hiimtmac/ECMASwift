@@ -1,9 +1,5 @@
-//
-//  File.swift
-//  
-//
-//  Created by Taylor McIntyre on 2020-05-11.
-//
+// Optional.swift
+// Copyright © 2022 hiimtmac
 
 import Foundation
 

@@ -1,10 +1,5 @@
-//
-//  JavaScriptParameterEncodable.swift
-//  ECMASwift
-//
-//  Created by Taylor McIntyre on 2019-07-03.
-//  Copyright © 2019 hiimtmac. All rights reserved.
-//
+// JavaScript+ParameterEncodable.swift
+// Copyright © 2022 hiimtmac
 
 import Foundation
 
@@ -28,16 +23,19 @@ extension String: JavaScriptParameterEncodable {
         return #""\#(self)""#
     }
 }
+
 extension Int: JavaScriptParameterEncodable {
     public func jsEncode() -> String {
         return "\(self)"
     }
 }
+
 extension Double: JavaScriptParameterEncodable {
     public func jsEncode() -> String {
         return "\(self)"
     }
 }
+
 extension Bool: JavaScriptParameterEncodable {
     public func jsEncode() -> String {
         return "\(self)"
@@ -49,7 +47,7 @@ extension Array: JavaScriptParameterEncodable where Element: JavaScriptParameter
         let joins = try self
             .map { try $0.jsEncode() }
             .joined(separator: ", ")
-        
+
         return "[\(joins)]"
     }
 }
